@@ -1,7 +1,7 @@
 var Ingredient = function (attr) {
   this.name = attr.name;
   this.category = attr.category||attr.name;
-  this.amount = attr.amount||0;
+  this.amount = attr.amount||1;
 };
 
 Ingredient.define = function(name, defaults) {
@@ -10,6 +10,10 @@ Ingredient.define = function(name, defaults) {
     i.amount = amount;
     return i;
   }
+};
+
+Ingredient.prototype.to_s = function() {
+  return (this.amount ? this.amount + "x " : '') + this.name + " (" + this.category + ")";
 };
 
 var ingredients = {

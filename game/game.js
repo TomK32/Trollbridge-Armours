@@ -5,6 +5,8 @@ var Game = function() {
   this.recipes = [];
 }
 
+Game.version = '0.1';
+
 Game.prototype.combine = function(recipe, amount) {
   amount = amount||1; // default to 1
   for(var c in recipe.ingredients) {

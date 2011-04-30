@@ -5,9 +5,13 @@ var Product = function(attr) {
 Product.define = function(name, defaults) {
   this[name] = function(amount) {
     var p = new this(defaults);
-    p.amount = amount;
+    p.amount = amount||1;
     return p;
   }
+};
+
+Product.prototype.to_s = function() {
+  return this.amount + "x " + this.name;
 };
 
 var products = {

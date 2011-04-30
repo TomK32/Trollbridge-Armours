@@ -8,6 +8,9 @@ describe("Recipe", function() {
   it("should have ingredients", function() {
     expect(recipe.ingredients).toEqual([Ingredient.oak_wood(3), Ingredient.leather(1)]);
   });
+  it("#to_s", function() {
+    expect(recipe.to_s()).toEqual('Wooden Sword');
+  });
   describe("pre-defined recipes", function() {
     it("should have oak_plank", function() {
       var recipe = Recipe.oak_plank();
