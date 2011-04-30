@@ -6,6 +6,6 @@ describe("Recipe", function() {
     expect(recipe.name).toEqual('Wooden Sword');
   });
   it("should have ingredients", function() {
-    expect(recipe.ingredients).toEqual([Ingredient.oak_wood(1), Ingredient.leather(3)]);
+    expect(recipe.ingredients).toEqual([Ingredient.oak_wood(3), Ingredient.leather(1)]);
   });
 });
