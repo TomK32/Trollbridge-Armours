@@ -4,8 +4,9 @@ Trollbridge Armours
 It’s Dangerous to go Alone! Take this!
 ======================================
 
-From the classic adventure game this line was chosen theme for the Ludum Dare 20.
-The decisive moment where the hero is given his weapon and sent on an epic quest.
+From a classic high fantasy action-adventure video game this line was chosen as
+theme for the Ludum Dare 20 in April/March 2011 and Trollbrige Armour is my entry.
+It's the decisive moment, the hero being given his weapon and sent on an epic quest.
 But what happend before that, how often does it happen and what profit was in for
 the blacksmith? Questions this game will answer.
 
