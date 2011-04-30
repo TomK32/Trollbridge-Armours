@@ -1,12 +1,11 @@
 WorkbenchView = function(game_view, canvas) {
-  this.canvas = canvas.createLayerAt('workbench', 540, -160, 240, canvas.height-200, 10, this.redraw, 5, true);
+  $.extend(this.__proto__, TableView);
+  this.canvas = canvas.createLayerAt('workbench', 540, -160, 240, canvas.height-200, 11, this.redraw, 5, true);
   this.canvas.parent = this;
   this.game_view = game_view;
   this.inventory = new Inventory();
   this.data_source = this.inventory;
 };
-
-$.extend(WorkbenchView.prototype, TableView);
 
 WorkbenchView.prototype.redraw = function(frameDuration, totalDuration, frameNumber) {
   this.clear();

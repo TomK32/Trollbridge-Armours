@@ -1,4 +1,6 @@
 var InventoryView = function(game_view, canvas, inventory) {
+  $.extend(this.__proto__, TableView);
+
   this.inventory = inventory;
   this.data_source = inventory;
   this.canvas = canvas.createLayerAt('inventory', 20, 0, 500, canvas.height-200, 10, this.redraw, 1, true);
@@ -8,8 +10,6 @@ var InventoryView = function(game_view, canvas, inventory) {
   this.canvas.onMouseUp = this.mouseUp;
   this.selected = false;
 };
-
-$.extend(InventoryView.prototype, TableView);
 
 InventoryView.prototype.redraw = function(frameDuration, totalDuration, frameNumber) {
   this.clear();
