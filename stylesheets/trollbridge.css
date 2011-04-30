@@ -1,0 +1,27 @@
+header, footer, section {
+  display: block;
+}
+
+header, #header {
+  font-size: 16px;
+}
+
+header strong, #header strong {
+  font-size: 32px;
+  text-shadow: 1px 1px 0 rgba(130,130,130, 0.7);
+  -webkit-border-radius: 4px;
+}
+#intro {
+  width: 500px;
+  height: 50%;
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  text-align: justify;
+  font-size: 20px;
+}
+
+footer, #footer {
+  position: fixed;
+  bottom: 5px;
+}
