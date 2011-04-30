@@ -8,4 +8,26 @@ describe("Game", function() {
   it("should have player", function() {
     expect(game.player).toBeDefined();
   })
+  it("should have inventory", function() {
+    expect(game.inventory).toBeDefined();
+  });
+  it("should have recipes", function() {
+    expect(game.recipes).toBeDefined();
+  });
+  describe("combine", function() {
+    it("should for one Ingredient", function() {
+      game.inventory.add(Ingredient.oak_wood(4));
+      expect(game.inventory.find('Oak Plank')).toBeFalsy();
+      // by default it should use up make only 1
+      expect(game.combine(Recipe.oak_plank())).toBeTruthy();
+      expect(game.inventory.find('Oak Wood').amount).toEqual(2);
+      expect(game.inventory.find('Oak Plank').amount).toEqual(1);
+    });
+    it("should not work if not enough ingredients", function() {
+      game.inventory.items = [];
+      expect(game.combine(Recipe.oak_plank())).toBeFalsy();
+      game.inventory.add(Ingredient.oak_wood(1))
+      expect(game.combine(Recipe.oak_plank())).toBeFalsy()
+    });
+  });
 });

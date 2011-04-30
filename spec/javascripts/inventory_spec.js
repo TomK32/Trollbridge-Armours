@@ -6,7 +6,7 @@ describe("Inventory", function() {
     expect(inventory.items).toBeDefined();
   });
   describe("find", function() {
-    it("should find items by", function() {
+    it("should find items by name", function() {
       expect(inventory.find('Oak Wood')).toEqual(false);
       inventory.items = [Ingredient.oak_wood(2)];
       expect(inventory.find('Oak Wood').name).toEqual('Oak Wood');
@@ -17,6 +17,13 @@ describe("Inventory", function() {
       expect(inventory.find('Oak Wood', 1)).toEqual(Ingredient.oak_wood(1));
       expect(inventory.find('Oak Wood', 2)).toEqual(Ingredient.oak_wood(2));
       expect(inventory.find('Oak Wood', 3)).toEqual(false);
+    });
+    it("should find by other Ingredient", function() {
+      expect(inventory.find('Oak Wood')).toBeFalsy();
+      inventory.items = [Ingredient.oak_wood(2)];
+      expect(inventory.find(Ingredient.oak_wood(1)).amount).toEqual(1);
+      expect(inventory.find(Ingredient.oak_wood(2))).toBeTruthy();
+      expect(inventory.find(Ingredient.oak_wood(3))).toBeFalsy();
     });
   });
   describe("stock management", function() {
@@ -37,8 +44,5 @@ describe("Inventory", function() {
       expect(inventory.remove(Ingredient.oak_wood(2))).toEqual(false);
       expect(inventory.items.length).toEqual(0);
     });
-  });
-  describe("combine", function() {
-
   });
 });

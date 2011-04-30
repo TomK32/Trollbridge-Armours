@@ -4,6 +4,12 @@ var Inventory = function() {
 
 // returns item if found and matching the (optional) amount
 Inventory.prototype.find = function(what, amount) {
+  if(typeof(what) == "object") {
+    if(what.amount) {
+      var amount = what.amount;
+    }
+    var what = what.name;
+  }
   for(var c in this.items) {
     if(this.items[c].name == what) {
       if(amount) {
