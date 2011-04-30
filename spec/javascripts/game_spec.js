@@ -15,13 +15,24 @@ describe("Game", function() {
     expect(game.recipes).toBeDefined();
   });
   describe("combine", function() {
-    it("should for one Ingredient", function() {
+    it("should for one ingredient", function() {
       game.inventory.add(Ingredient.oak_wood(4));
       expect(game.inventory.find('Oak Plank')).toBeFalsy();
       // by default it should use up make only 1
       expect(game.combine(Recipe.oak_plank())).toBeTruthy();
       expect(game.inventory.find('Oak Wood').amount).toEqual(2);
       expect(game.inventory.find('Oak Plank').amount).toEqual(1);
+    });
+    it("should for two ingredients", function() {
+      game.inventory.add(Ingredient.oak_plank(1));
+      game.inventory.add(Ingredient.leather(3));
+      expect(game.inventory.find('Wooden Sword')).toBeFalsy();
+      // by default it should use up make only 1
+      expect(game.combine(Recipe.wooden_sword())).toBeTruthy();
+      expect(game.inventory.find('Oak Plank').amount).toEqual(0);
+      expect(game.inventory.find('Leather').amount).toEqual(2);
+      console.log(game.inventory.items);
+      expect(game.inventory.find('Wooden Sword').amount).toEqual(1);
     });
     it("should not work if not enough ingredients", function() {
       game.inventory.items = [];
