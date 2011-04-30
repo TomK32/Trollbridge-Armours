@@ -5,11 +5,19 @@ describe("Inventory", function() {
   it("should have items", function() {
     expect(inventory.items).toBeDefined();
   });
-  it("should find items", function() {
-    expect(inventory.find('Oak Wood')).toEqual(false);
-    inventory.items = [Ingredient.oak_wood(2)];
-    expect(inventory.find('Oak Wood').name).toEqual('Oak Wood');
-    expect(inventory.find('Oak Wood').amount).toEqual(2);
+  describe("find", function() {
+    it("should find items by", function() {
+      expect(inventory.find('Oak Wood')).toEqual(false);
+      inventory.items = [Ingredient.oak_wood(2)];
+      expect(inventory.find('Oak Wood').name).toEqual('Oak Wood');
+      expect(inventory.find('Oak Wood').amount).toEqual(2);
+    });
+    it("should find items by name and amount", function() {
+      inventory.items = [Ingredient.oak_wood(2)];
+      expect(inventory.find('Oak Wood', 1)).toEqual(Ingredient.oak_wood(1));
+      expect(inventory.find('Oak Wood', 2)).toEqual(Ingredient.oak_wood(2));
+      expect(inventory.find('Oak Wood', 3)).toEqual(false);
+    });
   });
   describe("stock management", function() {
     it("should add Ingredient", function() {
