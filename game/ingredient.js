@@ -1,16 +1,13 @@
-var Ingredient = function (name, category, amount) {
-  this.name = name;
-  this.category = category||name;
-  this.amount = amount||0;
+var Ingredient = function (attr) {
+  this.name = attr.name;
+  this.category = attr.category||attr.name;
+  this.amount = attr.amount||0;
 };
 
 Ingredient.define = function(name, defaults) {
   this[name] = function(amount) {
-    i = new this();
+    i = new this(defaults);
     i.amount = amount;
-    for(var key in defaults) {
-      i[key] = defaults[key];
-    }
     return i;
   }
 };
