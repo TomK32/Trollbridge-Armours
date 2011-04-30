@@ -14,9 +14,10 @@ Ingredient.define = function(name, defaults) {
 
 var ingredients = {
   oak_wood: { name: 'Oak Wood', category: 'Wood'},
+  oak_plank: { name: 'Oak Plank', category: 'Plank'},
   leather: { name: 'Leather', category: 'Leather'}
 }
 
-for(var ingredient in ingredients) {
-  Ingredient.define(ingredient, ingredients[ingredient]);
+for(var key in ingredients) {
+  Ingredient.define(key, ingredients[key]);
 }
