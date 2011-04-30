@@ -5,13 +5,15 @@ var Recipe = function(attr) {
 }
 
 Recipe.define = function(name, defaults) {
-  this[name] = function(amount) {
+  this[name] = function() {
     return new this(defaults);
   }
 };
 
 var recipes = {
-  oak_plank: { ingredients: [Ingredient.oak_wood(2)], products: [Ingredient.oak_plank(1)]}
+  oak_plank: { ingredients: [Ingredient.oak_wood(2)], products: [Ingredient.oak_plank(1)]},
+  wooden_sword: { ingredients: [Ingredient.oak_plank(1), Ingredient.leather(1)],
+        products: [Product.wooden_sword(1)]}
 }
 
 for(var key in recipes) {
