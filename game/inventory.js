@@ -40,6 +40,7 @@ Inventory.prototype.remove = function(other) {
   var stock = this.find(other.name);
   if(stock) {
     stock.amount -= other.amount;
+    if(stock.amount == 0) { delete this.items[this.items.indexOf(stock)]; return true; }
     return this;
   } else { return false; }
 };
