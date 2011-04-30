@@ -29,7 +29,7 @@ describe("Game", function() {
       expect(game.inventory.find('Wooden Sword')).toBeFalsy();
       // by default it should use up make only 1
       expect(game.combine(Recipe.wooden_sword())).toBeTruthy();
-      expect(game.inventory.find('Oak Plank').amount).toEqual(0);
+      expect(game.inventory.find('Oak Plank')).toBeFalsy();
       expect(game.inventory.find('Leather').amount).toEqual(2);
       expect(game.inventory.find('Wooden Sword').amount).toEqual(1);
     });

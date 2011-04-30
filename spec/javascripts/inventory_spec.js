@@ -39,6 +39,12 @@ describe("Inventory", function() {
       expect(inventory.remove(Ingredient.oak_wood(2)).find('Oak Wood').amount).toEqual(1);
       expect(inventory.items.length).toEqual(1);
     });
+    it("should remove item if amount 0", function() {
+      inventory.add(Ingredient.oak_wood(2));
+      expect(inventory.remove(Ingredient.oak_wood(1)).find('Oak Wood').amount).toEqual(1);
+      expect(inventory.remove(Ingredient.oak_wood(1))).toBeTruthy();
+      expect(inventory.find('Oak Wood')).toEqual(false);
+    });
     it("should not allow negative amounts", function() {
       expect(inventory.items.length).toEqual(0);
       expect(inventory.remove(Ingredient.oak_wood(2))).toEqual(false);

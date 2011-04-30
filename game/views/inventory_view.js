@@ -1,36 +1,39 @@
-var InventoryView = function(game_view, canvas, inventory) {
+var InventoryView = function(game_view, inventory) {
   $.extend(this.__proto__, TableView);
 
   this.inventory = inventory;
   this.data_source = inventory;
-  this.canvas = canvas.createLayerAt('inventory', 20, 0, 500, canvas.height-200, 10, this.redraw, 1, true);
-  this.canvas.parent = this;
+  this.parent = game_view;
+  this.canvas = new Raphael(this.x(180), this.y(40), 300, 300);
+  this.canvas.defaultCustomAttributes()
   this.game_view = game_view;
   this.canvas.onMouseDown = this.mouseDown;
   this.canvas.onMouseUp = this.mouseUp;
   this.selected = false;
+  this.redraw();
 };
 
+InventoryView.prototype.x = function(other) {
+  return this.parent.canvas.canvas.offsetLeft + other;
+}
+InventoryView.prototype.y = function(other) {
+  return this.parent.canvas.canvas.offsetTop + other;
+}
 InventoryView.prototype.redraw = function(frameDuration, totalDuration, frameNumber) {
-  this.clear();
-  this.font_regular();
-  this.fillColor('#fff');
-  this.fillRect(0, 0, this.width, this.height);
-  this.fillColor('#000');
-
-  if(this.parent) {
-    this.parent.renderTable();
-  }
+  this.canvas.clear();
+  this.canvas.fillBackground('#eee');
+  
+  this.renderTable();
 };
 
-InventoryView.prototype.selectRow = function(row) {
-  if(this.selected) { return true; }
-  var item = this.data_source.items[row];
+InventoryView.prototype.selectRow = function(event) {
+  var row = this.attrs.row;
+  var p = this.attrs.parent;
+  var item = p.data_source.items[row];
   // TODO amount_available < 1
   if(!item || item.amount < 1) { return false; }
-  this.selected = true;
   // new selection
   var item_clone = jQuery.extend(true, {}, item);
   item_clone.amount = 1;
-  this.game_view.selectIngredient(item_clone);
+  p.game_view.selectIngredient(item_clone);
 };
