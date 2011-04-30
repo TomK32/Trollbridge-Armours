@@ -31,7 +31,6 @@ describe("Game", function() {
       expect(game.combine(Recipe.wooden_sword())).toBeTruthy();
       expect(game.inventory.find('Oak Plank').amount).toEqual(0);
       expect(game.inventory.find('Leather').amount).toEqual(2);
-      console.log(game.inventory.items);
       expect(game.inventory.find('Wooden Sword').amount).toEqual(1);
     });
     it("should not work if not enough ingredients", function() {
