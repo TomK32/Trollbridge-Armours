@@ -12,6 +12,7 @@ var MenuView = function(game_view) {
   this.redraw();
 }
 MenuView.prototype.redraw = function() {
+  this.canvas.clear();
   this.menu_items = [];
   this.menu_items.push(this.canvas.text(5, 5, 'Workshop').default({parent: this}).click(this.showInventory)[0]);
   this.menu_items.push(this.canvas.text(this.leftMargin(this.menu_items.slice(-1,1)) + 20, 5, 'Customers').default({parent: this}).click(this.showHeroes)[0]);

@@ -4,20 +4,23 @@ var GameView = function(target, game) {
   this.canvas = new Raphael(target, 900, 600);
   this.canvas.defaultCustomAttributes()
 
+  // sub views
   this.inventory_view = new InventoryView(this, this.game.inventory);
   this.workbench_view = new WorkbenchView(this);
   this.heroes_view = new HeroesView(this, game.heroes);
   this.player_view = new PlayerView(this, game.player);
+  this.help_view = new HelpView(this, game.player);
 
   this.menu_view = new MenuView(this);
   this.tabs = [this.inventory_view.canvas.canvas, this.workbench_view.canvas.canvas,
-    this.heroes_view.canvas.canvas];
-  $(this.tabs).hide();
-  this.showView('inventory');
+    this.heroes_view.canvas.canvas, this.help_view.canvas.canvas];
+
+  this.showView('help');
   this.redraw();
 };
 
 GameView.prototype.showView = function(view) {
+  $(this.tabs).hide();
   $(this[view + '_view'].canvas.canvas).show();
   this[view + '_view'].redraw();
 }
@@ -26,8 +29,14 @@ GameView.prototype.redraw = function() {
   this.canvas.image('images/shop.png', 0,0, 900, 600);
 
   this.canvas.text(this.canvas.canvas.offsetWidth-15, 15, 'v' + Game.version).default({'text-anchor': 'end'});
+  this.canvas.text(this.canvas.canvas.offsetWidth-60, 15, 'Help')
+      .default({'text-anchor': 'end', parent: this})
+      .click(function(e){ this.attrs.parent.showView('help'); });
   this.inventory_view.redraw();
   this.workbench_view.redraw();
+  this.player_view.redraw();
+  this.heroes_view.redraw();
+  this.menu_view.redraw();
 };
 
 
