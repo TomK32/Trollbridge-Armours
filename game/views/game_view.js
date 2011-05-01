@@ -1,20 +1,4 @@
 
-Raphael.fn.defaultCustomAttributes = function() {
-  this.customAttributes.parent = function (parent) { return parent; }
-  this.customAttributes.row = function (row) { return row; }
-}
-Raphael.fn.fillBackground = function(color) {
-  this.rect(0,0,this.width, this.height).attr({fill: color});
-}
-Raphael.el.withHighlight = function() {
-  var toggleHighlight = function(event) {
-    $(event.target).css('font-weight',
-      ($(event.target).css('font-weight') == 'bold') ? 'normal' : 'bold');
-  }
-  this.hover(toggleHighlight).mouseout(toggleHighlight);
-}
-
-
 var GameView = function(target, game) {
   this.game = game;
   this.canvas = new Raphael(target, 800, 600);

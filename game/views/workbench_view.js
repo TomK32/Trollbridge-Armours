@@ -8,6 +8,7 @@ WorkbenchView = function(game_view) {
   this.inventory = new Inventory();
   this.data_source = this.inventory;
   this.redraw();
+  this.tableOffsetTop = 50;
 };
 
 WorkbenchView.prototype.x = function(other) {
@@ -22,8 +23,10 @@ WorkbenchView.prototype.redraw = function(frameDuration, totalDuration, frameNum
   this.canvas.fillBackground('#eee');
 
   this.renderTable();
-
-  this.canvas.text(this.x(0), this.y(this.canvas.height-20), 'Combine');
+  if(this.data_source.items.length > 0) {
+    this.canvas.text(this.canvas.width / 2, 20, 'Combine')
+      .default({'text-anchor': 'middle'}).button(this.combine);
+  }
 };
 
 WorkbenchView.prototype.selectRow = function(event) {
@@ -51,3 +54,6 @@ WorkbenchView.prototype.selectRow = function(event) {
   p.game_view.redraw();
 };
 
+WorkbenchView.prototype.combine = function(event) {
+  console.log(event);
+}
