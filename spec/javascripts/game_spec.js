@@ -15,6 +15,9 @@ describe("Game", function() {
     expect(game.recipes).toBeDefined();
     expect(game.player.recipes).toBeDefined();
   });
+  it("should have heroes", function() {
+    expect(game.heroes).toBeDefined();
+  });
   describe("combine", function() {
     it("should for one ingredient", function() {
       game.inventory.add(Ingredient.oak_wood(4));
