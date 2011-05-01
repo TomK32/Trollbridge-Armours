@@ -34,4 +34,7 @@ describe("Ingredient", function() {
       expect(oak_wood.amount).toEqual(1);
     });
   });
+  it("should be for sale", function() {
+    expect(new Ingredient({name: 'Air'}).forSale).toBeTruthy();
+  });
 });

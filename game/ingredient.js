@@ -2,6 +2,7 @@ var Ingredient = function (attr) {
   this.name = attr.name;
   this.category = attr.category||attr.name;
   this.amount = attr.amount||1;
+  this.forSale = attr.sale||true;
 };
 
 Ingredient.define = function(name, defaults) {

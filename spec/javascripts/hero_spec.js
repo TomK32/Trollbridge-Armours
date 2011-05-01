@@ -16,7 +16,7 @@ describe("Hero", function() {
   it("should have money", function() {
     expect(hero.money).toBeDefined();
   });
-  it("shoulve have wishlist", function() {
+  it("should have wishlist", function() {
     expect(hero.wishlist).toBeDefined();
   });
   it("should be present", function() {
