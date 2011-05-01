@@ -73,6 +73,7 @@ var HeroInventoryView = function(hero_view, hero) {
   this.hero = hero;
   this.game_view = hero_view.game_view;
   this.game_view.game.stopLoop();
+  this.game_view.redraw(true);
   this.parent = hero_view;
   this.canvas = new Raphael(this.x(0), this.y(0), this.parentWidth(), this.parentWidth());
   this.canvas.defaultCustomAttributes()
