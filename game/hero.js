@@ -11,17 +11,16 @@ Hero.define = function(name, defaults) {
   }
 };
 
+Hero.random = function() {
+  var keys = Object.keys(Hero.allHeroes);
+  return Hero[keys[Math.floor(Math.random() * keys.length)]];
+}
+
 Hero.allHeroes = {
   wendy: { name: 'Windy Wendy', items: [Product.wooden_sword(1), Product.wooden_shield(1)]},
   cagua: { name: 'Cague', items: []},
   picasse: { name: 'Picasse', items: [Product.wooden_sword(2)]}
 };
-
-console.log();
-Hero.random = function() {
-  var keys = Object.keys(Hero.allHeroes);
-  console.log(Hero[keys[Math.floor(Math.random() * keys.length)]]);
-}
 
 for(var key in Hero.allHeroes) {
   Hero.define(key, Hero.allHeroes[key]);
