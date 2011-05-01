@@ -5,7 +5,7 @@ var Inventory = function(items) {
 // returns item if found and matching the (optional) amount
 Inventory.prototype.find = function(what, amount) {
   if(typeof(what) == "object") {
-    if(what.amount) {
+    if(typeof(amount) == "undefined" && what.amount) {
       var amount = what.amount;
     }
     var what = what.name;

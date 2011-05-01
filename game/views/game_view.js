@@ -14,6 +14,7 @@ Raphael.el.withHighlight = function() {
   this.hover(toggleHighlight).mouseout(toggleHighlight);
 }
 
+
 var GameView = function(target, game) {
   this.game = game;
   this.canvas = new Raphael(target, 800, 600);
@@ -35,6 +36,12 @@ GameView.prototype.redraw = function() {
 
 
 GameView.prototype.selectIngredient = function(item) {
+  var inventory_item = this.inventory_view.inventory.find(item, 0);
+  var workbench_item = this.workbench_view.inventory.find(item, 0);
+  // cut item.amount down to the max we can
+  if (workbench_item && (item.amount + workbench_item.amount) >= inventory_item.amount) {
+      item.amount =  inventory_item.amount - workbench_item.amount;
+  }
   this.workbench_view.inventory.add(item);
   this.redraw();
 }

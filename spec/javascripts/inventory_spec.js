@@ -18,6 +18,12 @@ describe("Inventory", function() {
       expect(inventory.find('Oak Wood', 2)).toEqual(Ingredient.oak_wood(2));
       expect(inventory.find('Oak Wood', 3)).toEqual(false);
     });
+    it("should find items and ignore item's amout if second argument is 0", function() {
+      inventory.items = [Ingredient.oak_wood(3)];
+      expect(inventory.find('Oak Wood', 0)).toEqual(Ingredient.oak_wood(3));
+      expect(inventory.find(Ingredient.oak_wood(1), 0)).toEqual(Ingredient.oak_wood(3));
+      expect(inventory.find('Oak Wood', 4)).toEqual(false);
+    });
     it("should find by other Ingredient", function() {
       expect(inventory.find('Oak Wood')).toBeFalsy();
       inventory.items = [Ingredient.oak_wood(2)];
