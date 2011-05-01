@@ -8,7 +8,6 @@ Product.prototype.to_s = function() {
   return this.amount + "x " + this.name;
 };
 
-
 Product.define = function(name, defaults) {
   this[name] = function(amount) {
     var p = new Product(defaults);

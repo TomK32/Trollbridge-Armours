@@ -11,8 +11,8 @@ var Game = function() {
 Game.version = '0.1';
 
 Game.prototype.toggleLoop = function() {
-  if(this.timer) { this.stopLoop(); }
-  else { var t = this.startLoop(); }
+  if (this.timer) { this.stopLoop(); }
+  else { var t =  this.startLoop(); }
   this.game_view.redraw(true);
   return t;
 }
@@ -23,6 +23,7 @@ Game.prototype.startLoop = function() {
 Game.prototype.stopLoop = function() {
   clearInterval(this.timer);
   this.timer = false;
+  this.game_view.redraw(true);
 }
 
 // the loopy thing
