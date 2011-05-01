@@ -57,4 +57,10 @@ describe("Inventory", function() {
       expect(inventory.items.length).toEqual(0);
     });
   });
+  it("#compact", function() {
+    inventory.items = [new Ingredient('Air', 0)];
+    expect(inventory.find('Air')).toBeDefined();
+    inventory.compact();
+    expect(inventory.find('Air')).toBeFalsy();
+  });
 });

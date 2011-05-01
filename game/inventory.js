@@ -44,3 +44,9 @@ Inventory.prototype.remove = function(other) {
     return this;
   } else { return false; }
 };
+
+Inventory.prototype.compact = function() {
+  for(c in this.items) {
+    if(this.items[c].amount == 0) { this.items.splice(c,1) }
+  }
+}
