@@ -18,7 +18,7 @@ Game.prototype.toggleLoop = function() {
 }
 Game.prototype.startLoop = function() {
   if (this.timer) { return false; }
-  return this.timer = setInterval(this.tick, 33); // ~ 3/sec
+  return this.timer = setInterval(this.tick, 333); // ~ 3/sec
 }
 Game.prototype.stopLoop = function() {
   clearInterval(this.timer);
