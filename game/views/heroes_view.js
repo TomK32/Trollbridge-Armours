@@ -32,12 +32,16 @@ HeroesView.prototype.redraw = function() {
 }
 
 HeroesView.prototype.selectHero = function (row) {
-  var hero = this.heros[row];
-  $(this.hero_inventory.canvas.canvas).remove();
-  delete this.hero_inventory;
-  this.hero_inventory = new InventoryView()
+  var hero = this.heroes[row];
+  if(this.hero_inventory) {
+    $(this.hero_inventory.canvas.canvas).remove();
+    delete this.hero_inventory;
+  }
+  this.canvas.clear();
+  this.hero_inventory = new HeroInventoryView(this, hero)
+  this.game_view.tabs.push(this.hero_inventory.canvas.canvas);
 }
 
 HeroesView.prototype.clickCell = function(event) {
-  this.attrs.parent.selectHero(this.attrs.parent);
+  this.attrs.parent.selectHero(this.attrs.row);
 }
