@@ -1,5 +1,6 @@
 var Product = function(attr) {
   this.name = attr.name;
+  this.value = Math.abs(attr.value)||0;
 }
 
 Product.prototype.to_s = function() {
