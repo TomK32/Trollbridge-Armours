@@ -57,7 +57,7 @@ var HeroInventoryView = function(hero_view, hero) {
   $.extend(this.__proto__, TKView);
 
   this.inventory = hero.inventory;
-  this.data_source = hero.inventory;
+  this.data_source = hero.wishlist;
   this.hero_view = hero_view;
   this.hero = hero;
   this.game_view = hero_view.game_view;
@@ -68,7 +68,7 @@ var HeroInventoryView = function(hero_view, hero) {
   this.tableOffsetTop = 74;
   this.tableOffsetLeft = 146;
 
-  this.selectedTab = 0;
+  this.selectedTab = 1;
   this.redraw();
   
   this.tabs = [];
@@ -83,7 +83,6 @@ HeroInventoryView.prototype.redraw = function() {
   this.tabs = [];
   this.addTab(142, 50, 10, 'Inventory', true).default({parent: this}).click(this.showHeroInventory);
   this.addTab(142, 50, 10, 'Wants to buy', true).default({parent: this}).click(this.showHeroWishlist);
-  console.log(this.selectedTab);
   this.tabs[this.selectedTab].attr({'font-weight': 'bold'});
 
 };

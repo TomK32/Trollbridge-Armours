@@ -17,8 +17,7 @@ var GameView = function(target, game) {
     this.heroes_view.canvas.canvas, this.help_view.canvas.canvas, this.recipes_view.canvas.canvas];
 
   this.redraw();
-  $(this.menu_view.first.node).css('font-weight', 'bold');
-  this.showView('help');
+  this.menu_view.show(false, this.menu_view.first.node.textContent.toLowerCase());
 };
 
 GameView.prototype.showView = function(view, hide_others) {

@@ -41,7 +41,8 @@ MenuView.prototype.showHelp = function(event) {
 
 MenuView.prototype.show = function(event, tab) {
   $(this.menu_items).each(function(i,e){ $(e).css('font-weight', 'normal') });
-  $(event.target).parent().css('font-weight', 'bold');
+  var e = (event) ? $(event.target).parent() : (this ? this.first.node : false);
+  if(e) { $(e).css('font-weight', 'bold'); }
   $(this.game_view.tabs).hide();
   this.game_view.showView(tab);
 }
