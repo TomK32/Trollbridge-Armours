@@ -23,7 +23,7 @@ WorkbenchView.prototype.redraw = function(frameDuration, totalDuration, frameNum
   this.renderTable();
   if(this.data_source.items.length > 0) {
     this.canvas.text(this.canvas.width / 2, 20, 'Combine')
-      .default({'text-anchor': 'middle', parent: this}).button(this.combine);
+      .default({parent: this}).button(this.combine);
   }
 };
 
@@ -57,11 +57,16 @@ WorkbenchView.prototype.findRecipe = function() {
 }
 
 WorkbenchView.prototype.combine = function(event) {
-  var recipe = this.attrs.parent.findRecipe();
+  var p = this.attrs.parent;
+  var recipe = p.findRecipe();
   if(recipe) {
-    this.attrs.parent.game.combine(recipe);
-    this.attrs.parent.inventory.compact();
-    this.attrs.parent.game_view.redraw();
+    p.game.combine(recipe);
+    p.inventory.compact();
+    // hide if all used up
+    if(p.inventory.items.length == 0) {
+      $(p.canvas.canvas).hide();
+    }
+    p.game_view.redraw();
   } else {
     this.errorHighlight();
   }

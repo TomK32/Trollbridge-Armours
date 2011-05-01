@@ -29,5 +29,6 @@ Game.prototype.combine = function(recipe, amount) {
   for(var c in recipe.products) {
     this.inventory.add(recipe.products[c]);
   }
+  this.inventory.compact();
   return true;
 }
