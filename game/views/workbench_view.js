@@ -5,6 +5,7 @@ WorkbenchView = function(game_view) {
   this.canvas = new Raphael(this.x(520), this.y(40), 240, 300);
   this.canvas.defaultCustomAttributes()
   this.game_view = game_view;
+  this.game = game_view.game;
   this.inventory = new Inventory();
   this.data_source = this.inventory;
   this.redraw();
@@ -25,7 +26,7 @@ WorkbenchView.prototype.redraw = function(frameDuration, totalDuration, frameNum
   this.renderTable();
   if(this.data_source.items.length > 0) {
     this.canvas.text(this.canvas.width / 2, 20, 'Combine')
-      .default({'text-anchor': 'middle'}).button(this.combine);
+      .default({'text-anchor': 'middle', parent: this}).button(this.combine);
   }
 };
 
@@ -54,6 +55,17 @@ WorkbenchView.prototype.selectRow = function(event) {
   p.game_view.redraw();
 };
 
+WorkbenchView.prototype.findRecipe = function() {
+  return this.game.findRecipeFor(this.inventory.items);
+}
+
 WorkbenchView.prototype.combine = function(event) {
-  console.log(event);
+  var recipe = this.attrs.parent.findRecipe();
+  if(recipe) {
+    this.attrs.parent.game.combine(recipe);
+    this.attrs.parent.inventory.compact();
+    this.attrs.parent.game_view.redraw();
+  } else {
+    this.errorHighlight();
+  }
 }
