@@ -24,7 +24,7 @@ GameView.prototype.redraw = function() {
   this.canvas.clear();
   this.canvas.image('images/shop.png', 0,0, 900, 600);
 
-  this.canvas.text(5, this.canvas.canvas.offsetHeight-10, 'v' + Game.version).attr({'text-anchor': 'start'});
+  this.canvas.text(this.canvas.canvas.offsetWidth-15, 15, 'v' + Game.version).default({'text-anchor': 'end'});
   this.inventory_view.redraw();
   this.workbench_view.redraw();
 };

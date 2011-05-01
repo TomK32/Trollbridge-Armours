@@ -5,7 +5,7 @@ var HeroesView = function(game_view, heroes) {
   this.parent = game_view;
   this.heroes = heroes;
 
-  this.canvas = new Raphael(this.x(180), this.y(40), 400, 400);
+  this.canvas = new Raphael(this.x(180), this.y(70), 400, 400);
   this.canvas.defaultCustomAttributes();
 
   this.cellSize = 132;

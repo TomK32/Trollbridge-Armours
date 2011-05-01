@@ -9,7 +9,7 @@ WorkbenchView = function(game_view) {
   this.inventory = new Inventory();
   this.data_source = this.inventory;
 
-  this.canvas = new Raphael(this.x(520), this.y(40), 240, 300);
+  this.canvas = new Raphael(this.x(620), this.y(70), 240, 300);
   this.canvas.defaultCustomAttributes()
 
   this.tableOffsetTop = 50;

@@ -13,8 +13,8 @@ var MenuView = function(game_view) {
 }
 MenuView.prototype.redraw = function() {
   this.menu_items = [];
-  this.menu_items.push(this.canvas.text(5, 5, 'Inventory').default({parent: this}).click(this.showInventory)[0]);
-  this.menu_items.push(this.canvas.text(this.leftMargin(this.menu_items.slice(-1,1)) + 20, 5, 'Heroes').default({parent: this}).click(this.showHeroes)[0]);
+  this.menu_items.push(this.canvas.text(5, 5, 'Workshop').default({parent: this}).click(this.showInventory)[0]);
+  this.menu_items.push(this.canvas.text(this.leftMargin(this.menu_items.slice(-1,1)) + 20, 5, 'Customers').default({parent: this}).click(this.showHeroes)[0]);
 }
 
 MenuView.prototype.leftMargin = function(l) {
