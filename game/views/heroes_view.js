@@ -82,7 +82,7 @@ HeroInventoryView.prototype.redraw = function() {
   this.canvas.text(142, 20, this.hero.name).default({'font-weight': 'bold'});
   this.tabs = [];
   this.addTab(142, 50, 10, 'Inventory', true).default({parent: this}).click(this.showHeroInventory);
-  var t = this.addTab(142, 50, 10, 'Wants to buy', true).default({parent: this}).click(this.showHeroWishlist);
+  this.addTab(142, 50, 10, 'Wants to buy', true).default({parent: this}).click(this.showHeroWishlist);
   console.log(this.selectedTab);
   this.tabs[this.selectedTab].attr({'font-weight': 'bold'});
 

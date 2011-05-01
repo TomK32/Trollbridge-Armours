@@ -15,7 +15,8 @@ MenuView.prototype.redraw = function() {
   this.canvas.clear();
   this.menu_items = [];
   this.menu_items.push(this.canvas.text(5, 5, 'Workshop').default({parent: this}).click(this.showInventory)[0]);
-  this.menu_items.push(this.canvas.text(this.leftMargin(this.menu_items.slice(-1,1)) + 20, 5, 'Customers').default({parent: this}).click(this.showHeroes)[0]);
+  this.menu_items.push(this.canvas.text(this.leftMargin(this.menu_items.slice(-1)) + 20, 5, 'Customers').default({parent: this}).click(this.showHeroes)[0]);
+  this.menu_items.push(this.canvas.text(this.leftMargin(this.menu_items.slice(-1)) + 20, 5, 'Recipes').default({parent: this}).click(this.showRecipes)[0]);
 }
 
 MenuView.prototype.leftMargin = function(l) {
@@ -27,6 +28,10 @@ MenuView.prototype.showInventory = function(event) {
 MenuView.prototype.showHeroes = function(event) {
   this.attrs.parent.show(event, 'heroes');
 }
+MenuView.prototype.showRecipes = function(event) {
+  this.attrs.parent.show(event, 'recipes');
+}
+
 MenuView.prototype.show = function(event, tab) {
   $(this.menu_items).each(function(i,e){ $(e).css('font-weight', 'normal') });
   $(event.target).parent().css('font-weight', 'bold');
