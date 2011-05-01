@@ -10,6 +10,9 @@ var Hero = function(attr) {
 }
 
 Hero.prototype.leave = function() {
+  if(this.wishlist.items.length > 0 && Math.random() < 0.1) {
+    this.wishlist.items.splice(Math.floor(this.wishlist.items.length*Math.random),1);
+  }
   this.present = false;
   return this;
 }

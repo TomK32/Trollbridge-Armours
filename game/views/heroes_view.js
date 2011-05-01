@@ -31,7 +31,7 @@ HeroesView.prototype.redraw = function() {
           row * this.cellSize+4, this.imageSize, this.imageSize)
         .attr({parent: this, row: c, fill: 'url(images/heroes/' + this.heroes[c].image + ')', 'stroke-width' : 0})
         .click(this.clickCell);
-      if(this.heroes[c].wishlist.length > 0) {
+      if(this.heroes[c].wishlist.items.length > 0) {
         image.attr({'stroke-width': '1px', 'stroke': '#F00'})
       }
       col += 1;
@@ -58,8 +58,8 @@ HeroesView.prototype.clickCell = function(event) {
 }
 
 HeroesView.prototype.sellItem = function(event) {
-  this.attrs.parent.game_view.game.sellItem(this.attrs.row, this.hero_inventory.hero);
-  this.hero_inventory.redraw();
+  this.attrs.parent.game_view.game.sellItem(this.attrs.row, this.attrs.parent.hero_inventory.hero);
+  this.attrs.parent.hero_inventory.redraw();
 };
 
 var HeroInventoryView = function(hero_view, hero) {

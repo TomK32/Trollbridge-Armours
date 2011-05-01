@@ -40,7 +40,7 @@ Game.prototype.tick = function() {
 Game.prototype.sellItem = function(item, hero) {
   if(!hero.wishlist.find(item,0) || !this.player.inventory.find(item,0)) { return false; }
   this.player.inventory.remove(item);
-  hero.wishlist.add(item);
+  hero.wishlist.remove(item);
   hero.inventory.add(item);
   return true;
 }
