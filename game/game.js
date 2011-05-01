@@ -10,9 +10,15 @@ var Game = function() {
 
 Game.version = '0.1';
 
+Game.prototype.toggleLoop = function() {
+  if(this.timer) { this.stopLoop(); }
+  else { var t = this.startLoop(); }
+  this.game_view.redraw(true);
+  return t;
+}
 Game.prototype.startLoop = function() {
   if (this.timer) { return false; }
-  return this.timer = setInterval(this.tick, 333); // ~ 3/sec
+  return this.timer = setInterval(this.tick, 33); // ~ 3/sec
 }
 Game.prototype.stopLoop = function() {
   clearInterval(this.timer);
@@ -26,7 +32,7 @@ Game.prototype.tick = function() {
     if(hero) {
       if(hero.present) { hero.leave(); }
       else { hero.arrive(); }
-      if(this.game_view) { this.game_view.heroes_view.redraw(); }
+      if(this.game_view) { this.game_view.redraw(true); this.game_view.heroes_view.redraw(); }
     }
   }
 }
