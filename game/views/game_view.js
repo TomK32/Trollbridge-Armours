@@ -33,7 +33,7 @@ GameView.prototype.redraw = function(skipSubviews) {
   this.canvas.image('images/shop.png', 0,0, 900, 600);
 
   this.canvas.text(this.canvas.canvas.offsetWidth-15, 15, 'v' + Game.version).default({'text-anchor': 'end'});
-  this.canvas.text(this.canvas.canvas.offsetWidth-20, this.canvas.canvas.offsetHeight-20, this.game.timer ? 'Pause' : 'Unpause').default({'text-anchor': 'end', parent: this}).click(function(e) { this.attrs.parent.game.toggleLoop(); });
+  this.canvas.text(this.canvas.canvas.offsetWidth-20, this.canvas.canvas.offsetHeight-20, this.game.timer ? 'Pause' : 'Unpause').default({'text-anchor': 'end', parent: this}).link(function(e) { this.attrs.parent.game.toggleLoop(); });
   if(skipSubviews) { return; }
   this.inventory_view.redraw();
   this.workbench_view.redraw();

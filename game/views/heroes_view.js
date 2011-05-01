@@ -30,7 +30,7 @@ HeroesView.prototype.redraw = function() {
       var image = this.canvas.rect((col % cellsPerRow) * this.cellSize+4,
           row * this.cellSize+4, this.imageSize, this.imageSize)
         .attr({parent: this, row: c, fill: 'url(images/heroes/' + this.heroes[c].image + ')', 'stroke-width' : 0})
-        .click(this.clickCell);
+        .link(this.clickCell);
       if(this.heroes[c].wishlist.items.length > 0) {
         image.attr({'stroke-width': '1px', 'stroke': '#F00'})
       }
@@ -89,11 +89,11 @@ HeroInventoryView.prototype.redraw = function() {
   this.canvas.clear();
   this.canvas.fillBackground('#eee').opaque();
   this.renderTable(this.salesLink);
-  this.canvas.image('images/heroes/' + this.hero.image, 4, 4, 128, 128).attr({parent: this}).click(this.closeInventory);
+  this.canvas.image('images/heroes/' + this.hero.image, 4, 4, 128, 128).attr({parent: this}).link(this.closeInventory);
   this.canvas.text(142, 20, this.hero.name).default({'font-weight': 'bold'});
   this.tabs = [];
-  this.addTab(142, 50, 10, 'Inventory', true).default({parent: this}).click(this.showHeroInventory);
-  this.addTab(142, 50, 10, 'Wants to buy', true).default({parent: this}).click(this.showHeroWishlist);
+  this.addTab(142, 50, 10, 'Inventory', true).default({parent: this}).link(this.showHeroInventory);
+  this.addTab(142, 50, 10, 'Wants to buy', true).default({parent: this}).link(this.showHeroWishlist);
   this.tabs[this.selectedTab].attr({'font-weight': 'bold'});
 
 };
@@ -104,7 +104,7 @@ HeroInventoryView.prototype.closeInventory = function(event) {
 }
 HeroInventoryView.prototype.salesLink = function(row, item) {
   if(this.parent.game.player.inventory.find(item.name)) {
-    row.attr({fill: '#00A', parent: this, row: item}).click(this.sellItem);
+    row.attr({fill: '#00A', parent: this, row: item}).link(this.sellItem);
   }
 }
 

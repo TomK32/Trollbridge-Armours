@@ -15,11 +15,11 @@ var MenuView = function(game_view) {
 MenuView.prototype.redraw = function() {
   this.canvas.clear();
   this.menu_items = [];
-  this.menu_items.push(this.canvas.text(5, 5, 'Workshop').default({parent: this}).click(this.showInventory)[0]);
-  this.menu_items.push(this.canvas.text(this.leftMargin(this.menu_items.slice(-1)) + 20, 5, 'Customers').default({parent: this}).click(this.showHeroes)[0]);
-  this.menu_items.push(this.canvas.text(this.leftMargin(this.menu_items.slice(-1)) + 20, 5, 'Recipes').default({parent: this}).click(this.showRecipes)[0]);
+  this.menu_items.push(this.canvas.text(5, 5, 'Workshop').default({parent: this}).link(this.showInventory)[0]);
+  this.menu_items.push(this.canvas.text(this.leftMargin(this.menu_items.slice(-1)) + 20, 5, 'Customers').default({parent: this}).link(this.showHeroes)[0]);
+  this.menu_items.push(this.canvas.text(this.leftMargin(this.menu_items.slice(-1)) + 20, 5, 'Recipes').default({parent: this}).link(this.showRecipes)[0]);
   this.first = this.canvas.text(this.canvas.canvas.offsetWidth-90, 5, 'Help')
-      .default({'text-anchor': 'end', parent: this}).click(this.showHelp);
+      .default({'text-anchor': 'end', parent: this}).link(this.showHelp);
   this.menu_items.push(this.first);
 }
 
