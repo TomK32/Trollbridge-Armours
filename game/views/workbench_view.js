@@ -18,7 +18,8 @@ WorkbenchView = function(game_view) {
 
 WorkbenchView.prototype.redraw = function(frameDuration, totalDuration, frameNumber) {
   this.canvas.clear();
-  this.canvas.fillBackground('#eee');
+  this.canvas.fillBackground('#eee').opaque();
+  this.inventory.compact();
 
   this.renderTable();
   if(this.data_source.items.length > 0) {
@@ -46,10 +47,10 @@ WorkbenchView.prototype.findRecipe = function() {
 
 WorkbenchView.prototype.combine = function(event) {
   var p = this.attrs.parent;
+  if(!p) { return; }
   var recipe = p.findRecipe();
   if(recipe) {
     p.game.combine(recipe);
-    p.inventory.compact();
     // hide if all used up
     if(p.inventory.items.length == 0) {
       $(p.canvas.canvas).hide();

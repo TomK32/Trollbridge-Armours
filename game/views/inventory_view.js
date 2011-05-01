@@ -13,16 +13,10 @@ var InventoryView = function(game_view, inventory) {
   this.redraw();
 };
 
-InventoryView.prototype.x = function(other) {
-  return this.parent.canvas.canvas.offsetLeft + other;
-}
-InventoryView.prototype.y = function(other) {
-  return this.parent.canvas.canvas.offsetTop + other;
-}
-InventoryView.prototype.redraw = function(frameDuration, totalDuration, frameNumber) {
+InventoryView.prototype.redraw = function() {
   this.canvas.clear();
-  this.canvas.fillBackground('#eee');
-  
+  this.canvas.fillBackground('#eee').opaque();
+
   this.renderTable();
 };
 

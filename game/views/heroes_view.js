@@ -5,18 +5,20 @@ var HeroesView = function(game_view, heroes) {
   this.parent = game_view;
   this.heroes = heroes;
 
-  this.canvas = new Raphael(this.x(180), this.y(40), 400, 300);
+  this.canvas = new Raphael(this.x(180), this.y(40), 400, 400);
   this.canvas.defaultCustomAttributes();
 
   this.cellSize = 132;
   this.imageSize = 128;
+
+  this.hero_inventory = null;
 
   this.redraw();
 }
 
 HeroesView.prototype.redraw = function() {
   this.canvas.clear();
-  this.canvas.fillBackground('#eee');
+  this.canvas.fillBackground('#ddd').opaque();
 
   var row = -1;
   var cellsPerRow = Math.floor(this.canvas.canvas.offsetWidth / this.cellSize);

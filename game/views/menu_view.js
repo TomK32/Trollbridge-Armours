@@ -27,7 +27,7 @@ MenuView.prototype.showHeroes = function(event) {
   this.attrs.parent.show(event, 'heroes');
 }
 MenuView.prototype.show = function(event, tab) {
-  $(this.menu_items).each(function(i,e){console.log($(e)); $(e).css('font-weight', 'normal')});
+  $(this.menu_items).each(function(i,e){ $(e).css('font-weight', 'normal') });
   $(event.target).parent().css('font-weight', 'bold');
   $(this.game_view.tabs).hide();
   this.game_view.showView(tab);

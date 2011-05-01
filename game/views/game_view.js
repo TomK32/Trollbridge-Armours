@@ -1,7 +1,7 @@
 
 var GameView = function(target, game) {
   this.game = game;
-  this.canvas = new Raphael(target, 800, 600);
+  this.canvas = new Raphael(target, 900, 600);
   this.canvas.defaultCustomAttributes()
 
   this.inventory_view = new InventoryView(this, this.game.inventory);
@@ -22,7 +22,7 @@ GameView.prototype.showView = function(view) {
 }
 GameView.prototype.redraw = function() {
   this.canvas.clear();
-  this.canvas.rect(0,0,this.canvas.width, this.canvas.height).attr({fill: '#ddd'});
+  this.canvas.image('images/shop.png', 0,0, 900, 600);
 
   this.canvas.text(5, this.canvas.canvas.offsetHeight-10, 'v' + Game.version).attr({'text-anchor': 'start'});
   this.inventory_view.redraw();
