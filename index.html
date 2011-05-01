@@ -33,7 +33,7 @@
         // give the new player some stock
         game.inventory.add(Ingredient.oak_wood(20));
         game.inventory.add(Ingredient.leather(10));
-        game.recipes = [Recipe.oak_plank(), Recipe.wooden_sword()];
+        game.player.recipes = [Recipe.oak_plank(), Recipe.wooden_sword()];
         game.heroes = [Hero.wendy(), Hero.cagua(), Hero.picasse(), Hero.riel()];
         game_view = new GameView('game_view', game);
         $('#intro').remove();

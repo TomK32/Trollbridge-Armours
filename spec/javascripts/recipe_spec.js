@@ -5,11 +5,15 @@ describe("Recipe", function() {
   it("should have name", function() {
     expect(recipe.name).toEqual('Wooden Sword');
   });
+  it("should use product's name as fallback", function() {
+    var r = new Recipe({ingredients: [Ingredient.oak_wood(2)], products: [Ingredient.oak_plank()]});
+    expect(r.name).toEqual('Oak Plank');
+  });
   it("should have ingredients", function() {
     expect(recipe.ingredients).toEqual([Ingredient.oak_wood(3), Ingredient.leather(1)]);
   });
   it("#to_s", function() {
-    expect(recipe.to_s()).toEqual('Wooden Sword');
+    expect(recipe.to_s()).toEqual('Wooden Sword (3x Oak Wood, 1x Leather)');
   });
   describe("pre-defined recipes", function() {
     it("should have oak_plank", function() {

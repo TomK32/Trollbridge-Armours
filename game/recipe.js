@@ -1,5 +1,5 @@
 var Recipe = function(attr) {
-  this.name = attr.name;
+  this.name = attr.name||attr.products[0].name;
   this.ingredients = attr.ingredients || [];
   this.products = attr.products || [];
 }
@@ -20,7 +20,11 @@ Recipe.prototype.fuzzyMatch = function(other_ingredients) {
 }
 
 Recipe.prototype.to_s = function() {
-  return this.name;
+  s = [];
+  for(c in this.ingredients) {
+    s.push(this.ingredients[c].amount + 'x ' + this.ingredients[c].name);
+  }
+  return this.name + ' (' + s.join(', ') + ')';
 };
 
 
