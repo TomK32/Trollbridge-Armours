@@ -6,9 +6,19 @@ var GameView = function(target, game) {
 
   this.inventory_view = new InventoryView(this, this.game.inventory);
   this.workbench_view = new WorkbenchView(this);
+  this.heroes_view = new HeroesView(this);
+  console.log(this.heroes_view, this.inventory_view);
+  this.menu_view = new MenuView(this);
+  this.tabs = [this.inventory_view.canvas.canvas, this.workbench_view.canvas.canvas,
+    this.heroes_view.canvas.canvas];
+  $(this.tabs).hide();
+  this.showView('inventory');
   this.redraw();
 };
 
+GameView.prototype.showView = function(view) {
+  $(this[view + '_view'].canvas.canvas).show();
+}
 GameView.prototype.redraw = function() {
   this.canvas.clear();
   this.canvas.rect(0,0,this.canvas.width, this.canvas.height).attr({fill: '#ddd'});

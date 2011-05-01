@@ -1,23 +1,20 @@
 WorkbenchView = function(game_view) {
   $.extend(this.__proto__, TableView);
+  $.extend(this.__proto__, TKView);
 
   this.parent = game_view;
-  this.canvas = new Raphael(this.x(520), this.y(40), 240, 300);
-  this.canvas.defaultCustomAttributes()
   this.game_view = game_view;
   this.game = game_view.game;
+
   this.inventory = new Inventory();
   this.data_source = this.inventory;
-  this.redraw();
-  this.tableOffsetTop = 50;
-};
 
-WorkbenchView.prototype.x = function(other) {
-  return this.parent.canvas.canvas.offsetLeft + other;
-}
-WorkbenchView.prototype.y = function(other) {
-  return this.parent.canvas.canvas.offsetTop + other;
-}
+  this.canvas = new Raphael(this.x(520), this.y(40), 240, 300);
+  this.canvas.defaultCustomAttributes()
+
+  this.tableOffsetTop = 50;
+  this.redraw();
+};
 
 WorkbenchView.prototype.redraw = function(frameDuration, totalDuration, frameNumber) {
   this.canvas.clear();
