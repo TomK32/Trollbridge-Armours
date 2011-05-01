@@ -22,13 +22,17 @@ HeroesView.prototype.redraw = function() {
   this.canvas.fillBackground('#ddd').opaque();
 
   var row = -1;
+  var col = 0;
   var cellsPerRow = Math.floor(this.canvas.canvas.offsetWidth / this.cellSize);
   for(c in this.heroes) {
-    if((c % cellsPerRow) == 0) { row += 1; }
-    this.canvas.image('images/heroes/' + this.heroes[c].image,
-        (c % cellsPerRow) * this.cellSize+4, row * this.cellSize+4, this.imageSize, this.imageSize)
-      .attr({parent: this, row: c})
-      .click(this.clickCell);
+    if(this.heroes[c].present) {
+      if((col % cellsPerRow) == 0) { row += 1; }
+      this.canvas.image('images/heroes/' + this.heroes[c].image,
+          (col % cellsPerRow) * this.cellSize+4, row * this.cellSize+4, this.imageSize, this.imageSize)
+        .attr({parent: this, row: c})
+        .click(this.clickCell);
+      col += 1;
+    }
   }
 }
 

@@ -4,8 +4,22 @@ var Hero = function(attr) {
   this.image = attr.image || (attr.name + '.png');
   this.inventory = new Inventory(attr.items);
   this.money = 20;
+  this.present = true;
+  this.wishlist = [];
+  this.present = true;
 }
 
+Hero.prototype.leave = function() {
+  this.present = false;
+  return this;
+}
+
+// hero has a new wish
+Hero.prototype.arrive = function() {
+  this.present = true;
+  this.wishlist.push(Product.random());
+  return this;
+}
 
 Hero.define = function(name, defaults) {
   Hero[name] = function() {

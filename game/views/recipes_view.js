@@ -4,7 +4,6 @@ var RecipesView = function(game_view, player) {
 
   this.game_view = game_view;
   this.parent = game_view;
-  console.log(player.recipes);
   this.recipes = player.recipes;
   this.data_source = this.recipes;
 
