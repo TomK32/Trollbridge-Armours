@@ -40,4 +40,21 @@ describe("Game", function() {
       expect(game.combine(Recipe.oak_plank())).toBeFalsy()
     });
   });
+  describe("findRecipeFor", function() {
+    beforeEach(function() {
+      game.recipes = [Recipe.oak_plank(), Recipe.wooden_sword()];
+    });
+    it("should match", function() {
+      expect(game.findRecipeFor([Ingredient.oak_wood(2)])).toEqual(Recipe.oak_plank());
+    });
+    it("should not match", function() {
+      expect(game.findRecipeFor([Ingredient.oak_wood(1)])).toBeFalsy());
+    });
+    it("should match if too many ingredients", function() {
+      expect(game.findRecipeFor([Ingredient.oak_wood(3)])).toEqual(Recipe.oak_plank());
+    });
+    it("should match if too many ingredients", function() {
+      expect(game.findRecipeFor([Ingredient.oak_plank(1), Ingredient.oak_wood(3)])).toEqual(Recipe.oak_plank());
+    });
+  });
 });

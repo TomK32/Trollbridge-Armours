@@ -11,6 +11,8 @@
 #   - dist/**/*.js
 #
 src_files:
+    - lib/jquery-1.5.2.min.js
+    - lib/raphael-min.js
     - lib/**/*.js
     - game/**/*.js
 

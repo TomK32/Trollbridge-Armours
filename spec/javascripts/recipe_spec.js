@@ -35,21 +35,21 @@ describe("Recipe", function() {
       expect(recipe.match([Ingredient.oak_wood(3), Ingredient.leather(1), Ingredient.oak_plank(1)])).toBeFalsy();
     });
   });
-  describe("#fuzzy_match", function() {
+  describe("#fuzzyMatch", function() {
     it("should match against ingredients", function() {
-      expect(recipe.fuzzy_match([Ingredient.oak_wood(3), Ingredient.leather(1)])).toBeTruthy();
+      expect(recipe.fuzzyMatch([Ingredient.oak_wood(3), Ingredient.leather(1)])).toBeTruthy();
     });
-    it("should fuzzy_match if too much of one ingredient", function() {
-      expect(recipe.fuzzy_match([Ingredient.oak_wood(3), Ingredient.leather(2)])).toBeTruthy();
+    it("should fuzzyMatch if too much of one ingredient", function() {
+      expect(recipe.fuzzyMatch([Ingredient.oak_wood(3), Ingredient.leather(2)])).toBeTruthy();
     });
-    it("should not fuzzy_match if not enough of one ingredient", function() {
-      expect(recipe.fuzzy_match([Ingredient.oak_wood(2), Ingredient.leather(2)])).toBeFalsy();
+    it("should not fuzzyMatch if not enough of one ingredient", function() {
+      expect(recipe.fuzzyMatch([Ingredient.oak_wood(2), Ingredient.leather(2)])).toBeFalsy();
     });
-    it("should not fuzzy_match if ingredient is missing", function() {
-      expect(recipe.fuzzy_match([Ingredient.oak_wood(3)])).toBeFalsy();
+    it("should not fuzzyMatch if ingredient is missing", function() {
+      expect(recipe.fuzzyMatch([Ingredient.oak_wood(3)])).toBeFalsy();
     });
-    it("should fuzzy_match if unused ingredient", function() {
-      expect(recipe.fuzzy_match([Ingredient.oak_wood(3), Ingredient.leather(1), Ingredient.oak_plank(1)])).toBeTruthy();
+    it("should fuzzyMatch if unused ingredient", function() {
+      expect(recipe.fuzzyMatch([Ingredient.oak_wood(3), Ingredient.leather(1), Ingredient.oak_plank(1)])).toBeTruthy();
     });
   });
 });

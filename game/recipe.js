@@ -5,11 +5,11 @@ var Recipe = function(attr) {
 }
 
 Recipe.prototype.match = function(other_ingredients) {
-  var o = this.fuzzy_match(other_ingredients);
+  var o = this.fuzzyMatch(other_ingredients);
   return(o && o.items.length == 0);
 }
 
-Recipe.prototype.fuzzy_match = function(other_ingredients) {
+Recipe.prototype.fuzzyMatch = function(other_ingredients) {
   var o = new Inventory($.extend([], other_ingredients));
   for(var ingredient in this.ingredients) {
     if(!o.remove(this.ingredients[ingredient])) {
@@ -30,12 +30,12 @@ Recipe.define = function(name, defaults) {
   }
 };
 
-var recipes = {
+Recipe.allRecipes = {
   oak_plank: { ingredients: [Ingredient.oak_wood(2)], products: [Ingredient.oak_plank(1)]},
   wooden_sword: { ingredients: [Ingredient.oak_plank(1), Ingredient.leather(1)],
         products: [Product.wooden_sword(1)]}
 };
 
-for(var key in recipes) {
-  Recipe.define(key, recipes[key]);
+for(var key in Recipe.allRecipes) {
+  Recipe.define(key, Recipe.allRecipes[key]);
 };
