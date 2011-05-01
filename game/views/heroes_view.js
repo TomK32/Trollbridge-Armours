@@ -57,6 +57,10 @@ HeroesView.prototype.clickCell = function(event) {
   this.attrs.parent.selectHero(this.attrs.row);
 }
 
+HeroesView.prototype.sellItem = function(event) {
+  this.attrs.parent.game_view.game.sellItem(this.attrs.row, this.hero_inventory.hero);
+  this.hero_inventory.redraw();
+};
 
 var HeroInventoryView = function(hero_view, hero) {
   $.extend(this.__proto__, InventoryView);

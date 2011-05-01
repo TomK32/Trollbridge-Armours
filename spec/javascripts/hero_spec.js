@@ -27,9 +27,9 @@ describe("Hero", function() {
     expect(hero.present).toBeFalsy();
   });
   it("#arrive", function() {
-    expect(hero.wishlist.length).toEqual(0);
+    expect(hero.wishlist.items.length).toEqual(0);
     hero.leave().arrive();
-    expect(hero.wishlist.length).toEqual(1);
-    expect(typeof(hero.wishlist[0])).toEqual('object');
+    expect(hero.wishlist.items.length).toEqual(1);
+    expect(typeof(hero.wishlist.items[0])).toEqual('object');
   });
 });
