@@ -28,18 +28,6 @@ WorkbenchView.prototype.redraw = function(frameDuration, totalDuration, frameNum
 };
 
 WorkbenchView.prototype.selectRow = function(event) {
-  if(this.selected) { return true; }
-  var item = this.data_source.items[row];
-  // TODO amount_available < 1
-  if(!item || item.amount < 1) { return false; }
-  this.selected = true;
-  // new selection
-  var item_clone = jQuery.extend(true, {}, item);
-  item_clone.amount = 1;
-  this.game_view.selectIngredient(item_clone);
-};
-
-WorkbenchView.prototype.selectRow = function(event) {
   var row = this.attrs.row;
   var p = this.attrs.parent;
   var item = p.data_source.items[row];

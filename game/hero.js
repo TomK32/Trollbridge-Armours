@@ -1,7 +1,7 @@
-var Hero = function(name, items, image) {
-  this.name = name;
-  this.image = image || (name + '.png');
-  this.inventory = new Inventory(items);
+var Hero = function(attr) {
+  this.name = attr.name;
+  this.image = attr.image || (attr.name + '.png');
+  this.inventory = new Inventory(attr.items);
 }
 
 
@@ -18,7 +18,8 @@ Hero.random = function() {
 
 Hero.allHeroes = {
   wendy: { name: 'Windy Wendy', items: [Product.wooden_sword(1), Product.wooden_shield(1)]},
-  cagua: { name: 'Cague', items: []},
+  cagua: { name: 'Cagua', items: []},
+  riel: { name: 'Louis David Riel', items: [Product.wooden_sword(1)]},
   picasse: { name: 'Picasse', items: [Product.wooden_sword(2)]}
 };
 
