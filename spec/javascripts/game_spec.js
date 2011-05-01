@@ -13,6 +13,7 @@ describe("Game", function() {
   });
   it("should have recipes", function() {
     expect(game.recipes).toBeDefined();
+    expect(game.player.recipes).toBeDefined();
   });
   describe("combine", function() {
     it("should for one ingredient", function() {
@@ -42,7 +43,7 @@ describe("Game", function() {
   });
   describe("findRecipeFor", function() {
     beforeEach(function() {
-      game.recipes = [Recipe.oak_plank(), Recipe.wooden_sword()];
+      game.player.recipes = [Recipe.oak_plank(), Recipe.wooden_sword()];
     });
     it("should match", function() {
       expect(game.findRecipeFor([Ingredient.oak_wood(2)])).toEqual(Recipe.oak_plank());

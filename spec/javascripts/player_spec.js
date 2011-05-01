@@ -16,4 +16,7 @@ describe("Player", function() {
   it("should have money", function() {
     expect(player.money).toBeDefined();
   });
+  it("should have recipes", function() {
+    expect(player.recipes).toBeDefined();
+  });
 });

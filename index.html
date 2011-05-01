@@ -11,7 +11,9 @@
     <script src="game/views/inventory_view.js" type="text/javascript"></script>
     <script src="game/views/workbench_view.js" type="text/javascript"></script>
     <script src="game/views/heroes_view.js" type="text/javascript"></script>
+    <script src="game/views/recipes_view.js" type="text/javascript"></script>
     <script src="game/views/player_view.js" type="text/javascript"></script>
+    <script src="game/views/help_view.js" type="text/javascript"></script>
     <script src="game/views/menu_view.js" type="text/javascript"></script>
     <script src="game/views/game_view.js" type="text/javascript"></script>
     <script src="game/money.js" type="text/javascript"></script>
@@ -31,7 +33,7 @@
         // give the new player some stock
         game.inventory.add(Ingredient.oak_wood(20));
         game.inventory.add(Ingredient.leather(10));
-        game.recipes = [Recipe.oak_plank(), Recipe.wooden_sword()];
+        game.player.recipes = [Recipe.oak_plank(), Recipe.wooden_sword()];
         game.heroes = [Hero.wendy(), Hero.cagua(), Hero.picasse(), Hero.riel()];
         game_view = new GameView('game_view', game);
         $('#intro').remove();

@@ -15,7 +15,7 @@ PlayerView.prototype.redraw = function() {
   this.canvas.clear();
   this.canvas.fillBackground('#ddd').opaque();
 
-  this.canvas.text(this.canvas.width/2, 20, this.player.name).default({'text-anchor': 'middle'});
+  this.canvas.text(this.canvas.width/2, 10, this.player.name).default({'text-anchor': 'middle'}).reposition();
   this.canvas.path("M10 35L" + (this.canvas.width-10) + " 35");
   this.canvas.text(10, 50, 'Balance: £' + this.player.money).default({'font-size': '14px'});
 }

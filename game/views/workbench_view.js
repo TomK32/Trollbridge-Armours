@@ -55,8 +55,9 @@ WorkbenchView.prototype.combine = function(event) {
     if(p.inventory.items.length == 0) {
       $(p.canvas.canvas).hide();
     }
-    p.game_view.redraw();
   } else {
     this.errorHighlight();
   }
+  p.inventory.compact();
+  p.game_view.redraw();
 }

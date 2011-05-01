@@ -10,18 +10,23 @@ Product.prototype.to_s = function() {
 
 Product.define = function(name, defaults) {
   this[name] = function(amount) {
-    var p = new this(defaults);
+    var p = new Product(defaults);
     p.amount = amount||1;
     return p;
   }
 };
 
-var products = {
+Product.random = function() {
+  var keys = Object.keys(Product.allProducts);
+  return Product[keys[Math.floor(Math.random() * keys.length)]].call();
+};
+
+Product.allProducts = {
   wooden_sword: { name: 'Wooden Sword', category: 'Sword' },
   wooden_shield: { name: 'Wooden Shield', category: 'Shield' },
   mask: { name: 'Mask', category: 'Headgear' }
-}
+};
 
-for(var key in products) {
-  Product.define(key, products[key]);
-}
+for(var key in Product.allProducts) {
+  Product.define(key, Product.allProducts[key]);
+};

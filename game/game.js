@@ -9,8 +9,8 @@ Game.version = '0.1';
 
 // return only the first matching
 Game.prototype.findRecipeFor = function(ingredients) {
-  for(c in this.recipes) {
-    if(this.recipes[c].fuzzyMatch(ingredients)) { return(this.recipes[c]); }
+  for(c in this.player.recipes) {
+    if(this.player.recipes[c].fuzzyMatch(ingredients)) { return(this.player.recipes[c]); }
   }
   return false
 };
