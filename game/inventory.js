@@ -29,9 +29,9 @@ Inventory.prototype.find = function(what, amount) {
 Inventory.prototype.add = function(other) {
   var stock = this.find(other.name);
   if(stock) {
-    stock.amount += other.amount
+    stock.amount += other.amount;
   } else {
-    this.items.push(other);
+    this.items.push($.extend(true, {}, other));
   }
   return this;
 };
