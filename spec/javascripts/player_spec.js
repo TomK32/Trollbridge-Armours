@@ -13,4 +13,7 @@ describe("Player", function() {
   it("should have inventory", function() {
     expect(player.inventory).toBeDefined();
   });
+  it("should have money", function() {
+    expect(player.money).toBeDefined();
+  });
 });

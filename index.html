@@ -11,6 +11,7 @@
     <script src="game/views/inventory_view.js" type="text/javascript"></script>
     <script src="game/views/workbench_view.js" type="text/javascript"></script>
     <script src="game/views/heroes_view.js" type="text/javascript"></script>
+    <script src="game/views/player_view.js" type="text/javascript"></script>
     <script src="game/views/menu_view.js" type="text/javascript"></script>
     <script src="game/views/game_view.js" type="text/javascript"></script>
     <script src="game/game.js" type="text/javascript"></script>
@@ -22,18 +23,19 @@
     <script src="game/recipe.js" type="text/javascript"></script>
     <script type="text/javascript">
       function start(){
-        $('#intro').remove();
         $('#game_view').show();
         game = new Game();
+        game.player.name = $('#player_name').val();
         // give the new player some stock
         game.inventory.add(Ingredient.oak_wood(20));
         game.inventory.add(Ingredient.leather(10));
         game.recipes = [Recipe.oak_plank(), Recipe.wooden_sword()];
         game.heroes = [Hero.wendy(), Hero.cagua(), Hero.picasse(), Hero.riel()];
         game_view = new GameView('game_view', game);
+        $('#intro').remove();
         return false;
       };
-      $(document).ready(start);
+      //$(document).ready(start);
     </script>
   </head>
   <body>
@@ -43,7 +45,8 @@
     </header>
     <section id="intro">
       <p>
-        Welcome player, this is <strong>Trollbridge Armours</strong> the company that you
+        Welcome <input type="text" placeholder="Player" value="" id="player_name"/>,
+        welcome to <strong>Trollbridge Armours</strong> the company that you
         have inherited from you uncle Frank Abercombe who died in Lagos last year.
         We are sorry about your loss and that it took us so long to find you.
         His workshop has manufactured and sold weapons and armours to all kinds
