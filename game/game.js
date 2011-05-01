@@ -22,13 +22,12 @@ Game.prototype.stopLoop = function() {
 // the loopy thing
 Game.prototype.tick = function() {
   if(Math.random()<0.1) {
-    var hero = game.heroes[Math.floor(Math.random()*game.heroes.length)]
+    var hero = game.heroes[Math.floor(Math.random()*game.heroes.length)];
     if(hero.present) { hero.leave(); }
     else { hero.arrive(); }
     if(this.game_view) { this.game_view.heroes_view.redraw(); }
   }
 }
-
 
 // return only the first matching
 Game.prototype.findRecipeFor = function(ingredients) {

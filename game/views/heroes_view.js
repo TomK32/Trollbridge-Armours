@@ -27,10 +27,13 @@ HeroesView.prototype.redraw = function() {
   for(c in this.heroes) {
     if(this.heroes[c].present) {
       if((col % cellsPerRow) == 0) { row += 1; }
-      this.canvas.image('images/heroes/' + this.heroes[c].image,
-          (col % cellsPerRow) * this.cellSize+4, row * this.cellSize+4, this.imageSize, this.imageSize)
-        .attr({parent: this, row: c})
+      var image = this.canvas.rect((col % cellsPerRow) * this.cellSize+4,
+          row * this.cellSize+4, this.imageSize, this.imageSize)
+        .attr({parent: this, row: c, fill: 'url(images/heroes/' + this.heroes[c].image + ')', 'stroke-width' : 0})
         .click(this.clickCell);
+      if(this.heroes[c].wishlist.length > 0) {
+        image.attr({'stroke-width': '1px', 'stroke': '#F00'})
+      }
       col += 1;
     }
   }
@@ -74,7 +77,7 @@ var HeroInventoryView = function(hero_view, hero) {
 
   this.selectedTab = 1;
   this.redraw();
-  
+
   this.tabs = [];
 };
 
