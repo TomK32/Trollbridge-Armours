@@ -5,13 +5,18 @@ var Recipe = function(attr) {
 }
 
 Recipe.prototype.match = function(other_ingredients) {
+  var o = this.fuzzy_match(other_ingredients);
+  return(o && o.items.length == 0);
+}
+
+Recipe.prototype.fuzzy_match = function(other_ingredients) {
   var o = new Inventory($.extend([], other_ingredients));
   for(var ingredient in this.ingredients) {
     if(!o.remove(this.ingredients[ingredient])) {
       return false;
     }
   }
-  return(o.items.length == 0);
+  return o;
 }
 
 Recipe.prototype.to_s = function() {

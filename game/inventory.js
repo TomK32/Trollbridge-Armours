@@ -38,7 +38,7 @@ Inventory.prototype.add = function(other) {
 
 Inventory.prototype.remove = function(other) {
   var stock = this.find(other.name);
-  if(stock) {
+  if(stock && stock.amount >= other.amount) {
     stock.amount -= other.amount;
     if(stock.amount == 0) { this.items.splice(this.items.indexOf(stock),1); return true; }
     return this;
