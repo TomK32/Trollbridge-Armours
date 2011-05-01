@@ -2,6 +2,11 @@ var Product = function(attr) {
   this.name = attr.name;
 }
 
+Product.prototype.to_s = function() {
+  return this.amount + "x " + this.name;
+};
+
+
 Product.define = function(name, defaults) {
   this[name] = function(amount) {
     var p = new this(defaults);
@@ -10,12 +15,10 @@ Product.define = function(name, defaults) {
   }
 };
 
-Product.prototype.to_s = function() {
-  return this.amount + "x " + this.name;
-};
-
 var products = {
-  wooden_sword: { name: 'Wooden Sword' }
+  wooden_sword: { name: 'Wooden Sword', category: 'Sword' },
+  wooden_shield: { name: 'Wooden Shield', category: 'Shield' },
+  mask: { name: 'Mask', category: 'Headgear' }
 }
 
 for(var key in products) {
