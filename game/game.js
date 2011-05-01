@@ -11,10 +11,12 @@ var Game = function() {
 Game.version = '0.1';
 
 Game.prototype.startLoop = function() {
+  if (this.timer) { return false; }
   return this.timer = setInterval(this.tick, 333); // ~ 3/sec
 }
 Game.prototype.stopLoop = function() {
   clearInterval(this.timer);
+  this.timer = false;
 }
 
 // the loopy thing
