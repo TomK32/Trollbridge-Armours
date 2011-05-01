@@ -3,9 +3,30 @@ var Game = function() {
   this.player = new Player();
   this.inventory = new Inventory();
   this.recipes = [];
+  this.heroes = [];
+  this.timer = this.startLoop();
+  this.game_view = null;
 }
 
 Game.version = '0.1';
+
+Game.prototype.startLoop = function() {
+  return this.timer = setInterval(this.tick, 333); // ~ 3/sec
+}
+Game.prototype.stopLoop = function() {
+  clearInterval(this.timer);
+}
+
+// the loopy thing
+Game.prototype.tick = function() {
+  if(Math.random()<0.1) {
+    var hero = game.heroes[Math.floor(Math.random()*game.heroes.length)]
+    if(hero.present) { hero.leave(); }
+    else { hero.arrive(); }
+    if(this.game_view) { this.game_view.heroes_view.redraw(); }
+  }
+}
+
 
 // return only the first matching
 Game.prototype.findRecipeFor = function(ingredients) {

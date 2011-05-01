@@ -36,6 +36,7 @@
         game.player.recipes = [Recipe.oak_plank(), Recipe.wooden_sword()];
         game.heroes = [Hero.wendy(), Hero.cagua(), Hero.picasse(), Hero.riel()];
         game_view = new GameView('game_view', game);
+        game.game_view = game_view;
         $('#intro').remove();
         return false;
       };
