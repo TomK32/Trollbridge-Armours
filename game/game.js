@@ -40,8 +40,14 @@ Game.prototype.tick = function() {
 Game.prototype.sellItem = function(item, hero) {
   if(!hero.wishlist.find(item,0) || !this.player.inventory.find(item,0)) { return false; }
   this.player.inventory.remove(item);
+  this.player.money += (item.value * item.amount);
+  this.player.lastAmount = item.value * item.amount;
   hero.wishlist.remove(item);
   hero.inventory.add(item);
+  if(this.game_view) {
+    this.game_view.player_view.redraw();
+    this.game_view.inventory_view.redraw();
+  }
   return true;
 }
 // return only the first matching

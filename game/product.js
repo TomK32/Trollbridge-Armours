@@ -1,6 +1,7 @@
 var Product = function(attr) {
   this.name = attr.name;
-  this.value = Math.abs(attr.value)||0;
+  this.value = Math.abs(attr.value)||1;
+  this.amount = attr.amount||1;
 }
 
 Product.prototype.to_s = function() {
@@ -22,9 +23,9 @@ Product.random = function() {
 };
 
 Product.allProducts = {
-  wooden_sword: { name: 'Wooden Sword', category: 'Sword' },
-  wooden_shield: { name: 'Wooden Shield', category: 'Shield' },
-  mask: { name: 'Mask', category: 'Headgear' }
+  wooden_sword: { name: 'Wooden Sword', category: 'Sword', value: 2 },
+  wooden_shield: { name: 'Wooden Shield', category: 'Shield', value: 2 },
+  mask: { name: 'Mask', category: 'Headgear', value: 2 }
 };
 
 for(var key in Product.allProducts) {
