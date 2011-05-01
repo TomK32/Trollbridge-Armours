@@ -89,7 +89,7 @@ HeroInventoryView.prototype.redraw = function() {
   this.canvas.clear();
   this.canvas.fillBackground('#eee').opaque();
   this.renderTable(this.salesLink);
-  this.canvas.image('images/heroes/' + this.hero.image, 4, 4, 128, 128);
+  this.canvas.image('images/heroes/' + this.hero.image, 4, 4, 128, 128).attr({parent: this}).click(this.closeInventory);
   this.canvas.text(142, 20, this.hero.name).default({'font-weight': 'bold'});
   this.tabs = [];
   this.addTab(142, 50, 10, 'Inventory', true).default({parent: this}).click(this.showHeroInventory);
@@ -98,6 +98,10 @@ HeroInventoryView.prototype.redraw = function() {
 
 };
 
+HeroInventoryView.prototype.closeInventory = function(event) {
+  this.attrs.parent.parent.removeHeroDetails();
+  this.attrs.parent.parent.redraw();
+}
 HeroInventoryView.prototype.salesLink = function(row, item) {
   if(this.parent.game.player.inventory.find(item.name)) {
     row.attr({fill: '#00A', parent: this, row: item}).click(this.sellItem);
