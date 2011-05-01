@@ -1,5 +1,5 @@
-var Inventory = function() {
-  this.items = [];
+var Inventory = function(items) {
+  this.items = items||[];
 };
 
 // returns item if found and matching the (optional) amount
@@ -40,7 +40,7 @@ Inventory.prototype.remove = function(other) {
   var stock = this.find(other.name);
   if(stock) {
     stock.amount -= other.amount;
-    if(stock.amount == 0) { delete this.items[this.items.indexOf(stock)]; return true; }
+    if(stock.amount == 0) { this.items.splice(this.items.indexOf(stock),1); return true; }
     return this;
   } else { return false; }
 };
