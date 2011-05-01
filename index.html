@@ -31,11 +31,13 @@
         game.player.name = $('#player_name').val();
         if(game.player.name == '') { game.player.name = prompt("What's your name?")}
         // give the new player some stock
-        game.inventory.add(Ingredient.oak_wood(20));
-        game.inventory.add(Ingredient.leather(10));
+        game.player.inventory.add(Ingredient.oak_wood(20));
+        game.player.inventory.add(Ingredient.leather(10));
+        game.player.inventory.add(Product.wooden_sword(10));
         game.player.recipes = [Recipe.oak_plank(), Recipe.wooden_sword()];
         game.heroes = [Hero.wendy(), Hero.cagua(), Hero.picasse(), Hero.riel()];
         game_view = new GameView('game_view', game);
+        game.game_view = game_view;
         $('#intro').remove();
         return false;
       };
@@ -47,7 +49,7 @@
       <strong>Trollbridge Armours</strong>
       <em>The Hero's First Choice</em>
     </header>
-    <section id="intro">
+    <section id="intro"><form onsubmit="start(); return false;">
       <p>
         Welcome <input type="text" placeholder="Player" value="" id="player_name"/>,
         welcome to <strong>Trollbridge Armours</strong> the company that you
@@ -60,7 +62,7 @@
         will require you to start at zero. There's not much money left as the search for you
         was very expensive but there's some <em>material in the inventory</em> left and also many
         <em>manuscripts</em> that will allow you to start the business and gain new customers.
-      </p>
+      </p></form>
       <p><a href="javascript:start();">start</a>
     </section>
     <div id="game_view" style="display: none" width="800px" height="600px"></div>

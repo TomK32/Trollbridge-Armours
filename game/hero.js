@@ -5,11 +5,14 @@ var Hero = function(attr) {
   this.inventory = new Inventory(attr.items);
   this.money = 20;
   this.present = true;
-  this.wishlist = [];
+  this.wishlist = new Inventory();
   this.present = true;
 }
 
 Hero.prototype.leave = function() {
+  if(this.wishlist.items.length > 0 && Math.random() < 0.1) {
+    this.wishlist.items.splice(Math.floor(this.wishlist.items.length*Math.random),1);
+  }
   this.present = false;
   return this;
 }
@@ -17,7 +20,7 @@ Hero.prototype.leave = function() {
 // hero has a new wish
 Hero.prototype.arrive = function() {
   this.present = true;
-  this.wishlist.push(Product.random());
+  this.wishlist.add(Product.random());
   return this;
 }
 

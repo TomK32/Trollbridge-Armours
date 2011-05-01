@@ -15,6 +15,9 @@ describe("Game", function() {
     expect(game.recipes).toBeDefined();
     expect(game.player.recipes).toBeDefined();
   });
+  it("should have heroes", function() {
+    expect(game.heroes).toBeDefined();
+  });
   describe("combine", function() {
     it("should for one ingredient", function() {
       game.inventory.add(Ingredient.oak_wood(4));
@@ -56,6 +59,24 @@ describe("Game", function() {
     });
     it("should match if too many ingredients", function() {
       expect(game.findRecipeFor([Ingredient.oak_plank(1), Ingredient.oak_wood(3)])).toEqual(Recipe.oak_plank());
+    });
+  });
+  describe("#sellItem", function() {
+    beforeEach(function() {
+      game.player.inventory.add(Product.wooden_sword(2));
+      hero = new Hero({name: 'Hulk'});
+      hero.wishlist.add(Product.wooden_sword(1));
+    });
+    it("should move item to hero", function() {
+      expect(game.sellItem(Product.wooden_sword(1), hero)).toBeTruthy();
+    });
+    it("should not if player has no stock", function() {
+      hero.wishlist.add(Product.wooden_shield(1));
+      expect(game.sellItem(Product.wooden_shield(1), hero)).toBeFalsy();
+    });
+    it("should not if hero doesn't want it", function() {
+      game.player.inventory.add(Product.wooden_shield(1));
+      expect(game.sellItem(Product.wooden_shield(1), hero)).toBeFalsy();
     });
   });
 });

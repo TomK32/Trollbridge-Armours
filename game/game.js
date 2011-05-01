@@ -1,12 +1,55 @@
 var Game = function() {
   // some defaults
   this.player = new Player();
-  this.inventory = new Inventory();
+  this.inventory = this.player.inventory;
   this.recipes = [];
+  this.heroes = [];
+  this.timer = this.startLoop();
+  this.game_view = null;
 }
 
 Game.version = '0.1';
 
+Game.prototype.toggleLoop = function() {
+  if(this.timer) { this.stopLoop(); }
+  else { var t = this.startLoop(); }
+  this.game_view.redraw(true);
+  return t;
+}
+Game.prototype.startLoop = function() {
+  if (this.timer) { return false; }
+  return this.timer = setInterval(this.tick, 333); // ~ 3/sec
+}
+Game.prototype.stopLoop = function() {
+  clearInterval(this.timer);
+  this.timer = false;
+}
+
+// the loopy thing
+Game.prototype.tick = function() {
+  if(Math.random()<0.1) {
+    var hero = game.heroes[Math.floor(Math.random()*game.heroes.length)];
+    if(hero) {
+      if(hero.present) { hero.leave(); }
+      else { hero.arrive(); }
+      if(this.game_view) { this.game_view.redraw(true); this.game_view.heroes_view.redraw(); }
+    }
+  }
+}
+
+Game.prototype.sellItem = function(item, hero) {
+  if(!hero.wishlist.find(item,0) || !this.player.inventory.find(item,0)) { return false; }
+  this.player.inventory.remove(item);
+  this.player.money += (item.value * item.amount);
+  this.player.lastAmount = item.value * item.amount;
+  hero.wishlist.remove(item);
+  hero.inventory.add(item);
+  if(this.game_view) {
+    this.game_view.player_view.redraw();
+    this.game_view.inventory_view.redraw();
+  }
+  return true;
+}
 // return only the first matching
 Game.prototype.findRecipeFor = function(ingredients) {
   for(c in this.player.recipes) {

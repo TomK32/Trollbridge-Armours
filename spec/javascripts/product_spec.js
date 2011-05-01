@@ -10,6 +10,7 @@ describe("Product", function() {
   });
   it("should not allow negative value", function() {
     expect(new Product({name: 'A', value: -3 }).value).toEqual(3);
-    expect(new Product({name: 'A', value: 0 }).value).toEqual(0);
+    expect(new Product({name: 'A', value: 4.2 }).value).toEqual(4.2);
+    expect(new Product({name: 'A', value: 0 }).value).toEqual(1);
   });
 });
