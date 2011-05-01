@@ -48,7 +48,7 @@ describe("Game", function() {
       expect(game.findRecipeFor([Ingredient.oak_wood(2)])).toEqual(Recipe.oak_plank());
     });
     it("should not match", function() {
-      expect(game.findRecipeFor([Ingredient.oak_wood(1)])).toBeFalsy());
+      expect(game.findRecipeFor([Ingredient.oak_wood(1)])).toBeFalsy();
     });
     it("should match if too many ingredients", function() {
       expect(game.findRecipeFor([Ingredient.oak_wood(3)])).toEqual(Recipe.oak_plank());
