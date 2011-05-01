@@ -16,12 +16,13 @@ var GameView = function(target, game) {
   this.tabs = [this.inventory_view.canvas.canvas, this.workbench_view.canvas.canvas,
     this.heroes_view.canvas.canvas, this.help_view.canvas.canvas, this.recipes_view.canvas.canvas];
 
-  this.showView('help');
   this.redraw();
+  $(this.menu_view.first.node).css('font-weight', 'bold');
+  this.showView('help');
 };
 
-GameView.prototype.showView = function(view) {
-  $(this.tabs).hide();
+GameView.prototype.showView = function(view, hide_others) {
+  if(hide_others) { $(this.tabs).hide(); }
   $(this[view + '_view'].canvas.canvas).show();
   this[view + '_view'].redraw();
 }
@@ -30,9 +31,6 @@ GameView.prototype.redraw = function() {
   this.canvas.image('images/shop.png', 0,0, 900, 600);
 
   this.canvas.text(this.canvas.canvas.offsetWidth-15, 15, 'v' + Game.version).default({'text-anchor': 'end'});
-  this.canvas.text(this.canvas.canvas.offsetWidth-60, 15, 'Help')
-      .default({'text-anchor': 'end', parent: this})
-      .click(function(e){ this.attrs.parent.showView('help'); });
   this.inventory_view.redraw();
   this.workbench_view.redraw();
   this.player_view.redraw();

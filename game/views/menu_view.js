@@ -4,10 +4,11 @@ var MenuView = function(game_view) {
   this.game_view = game_view;
   this.parent = game_view;
 
-  this.canvas = new Raphael(this.x(20), this.y(10), 600, 30);
+  this.canvas = new Raphael(this.x(20), this.y(10), this.parent.canvas.canvas.offsetWidth, 30);
   this.canvas.defaultCustomAttributes();
 
   this.menu_items = [];
+  this.first = false;
 
   this.redraw();
 }
@@ -17,6 +18,9 @@ MenuView.prototype.redraw = function() {
   this.menu_items.push(this.canvas.text(5, 5, 'Workshop').default({parent: this}).click(this.showInventory)[0]);
   this.menu_items.push(this.canvas.text(this.leftMargin(this.menu_items.slice(-1)) + 20, 5, 'Customers').default({parent: this}).click(this.showHeroes)[0]);
   this.menu_items.push(this.canvas.text(this.leftMargin(this.menu_items.slice(-1)) + 20, 5, 'Recipes').default({parent: this}).click(this.showRecipes)[0]);
+  this.first = this.canvas.text(this.canvas.canvas.offsetWidth-90, 5, 'Help')
+      .default({'text-anchor': 'end', parent: this}).click(this.showHelp)
+  this.menu_items.push(this.first);
 }
 
 MenuView.prototype.leftMargin = function(l) {
@@ -30,6 +34,9 @@ MenuView.prototype.showHeroes = function(event) {
 }
 MenuView.prototype.showRecipes = function(event) {
   this.attrs.parent.show(event, 'recipes');
+}
+MenuView.prototype.showHelp = function(event) {
+  this.attrs.parent.show(event, 'help');
 }
 
 MenuView.prototype.show = function(event, tab) {
