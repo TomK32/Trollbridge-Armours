@@ -20,6 +20,7 @@ Hero.prototype.leave = function() {
 // hero has a new wish
 Hero.prototype.arrive = function() {
   this.present = true;
+  this.inventory.add(Ingredient.random());
   this.wishlist.add(Product.random());
   return this;
 }

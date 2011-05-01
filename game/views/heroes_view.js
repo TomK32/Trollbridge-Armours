@@ -88,6 +88,9 @@ var HeroInventoryView = function(hero_view, hero) {
 
 HeroInventoryView.prototype.redraw = function() {
   this.canvas.clear();
+  if(this.selectedTab == 1 && this.data_source.items.length == 0) {
+    this.showHeroInventory();
+  }
   this.canvas.fillBackground('#eee').opaque();
   this.renderTable(this.salesLink);
   this.canvas.image('images/heroes/' + this.hero.image, 4, 4, 128, 128).attr({parent: this}).link(this.closeInventory);
@@ -127,7 +130,7 @@ HeroInventoryView.prototype.showHeroWishlist = function(event) {
   p.redraw();
 };
 HeroInventoryView.prototype.showHeroInventory = function(event) {
-  var p = this.attrs.parent;
+  var p = (this.attrs ? this.attrs.parent : this);
   p.selectedTab = 0; // TODO constants?
   p.data_source = p.hero.inventory;
   p.redraw();
