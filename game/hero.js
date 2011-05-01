@@ -1,7 +1,9 @@
 var Hero = function(attr) {
+  $.extend(this.__proto__, Money);
   this.name = attr.name;
   this.image = attr.image || (attr.name + '.png');
   this.inventory = new Inventory(attr.items);
+  this.money = 20;
 }
 
 

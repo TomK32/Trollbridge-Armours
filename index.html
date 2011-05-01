@@ -14,6 +14,7 @@
     <script src="game/views/player_view.js" type="text/javascript"></script>
     <script src="game/views/menu_view.js" type="text/javascript"></script>
     <script src="game/views/game_view.js" type="text/javascript"></script>
+    <script src="game/money.js" type="text/javascript"></script>
     <script src="game/game.js" type="text/javascript"></script>
     <script src="game/ingredient.js" type="text/javascript"></script>
     <script src="game/inventory.js" type="text/javascript"></script>
@@ -26,6 +27,7 @@
         $('#game_view').show();
         game = new Game();
         game.player.name = $('#player_name').val();
+        if(game.player.name == '') { game.player.name = prompt("What's your name?")}
         // give the new player some stock
         game.inventory.add(Ingredient.oak_wood(20));
         game.inventory.add(Ingredient.leather(10));

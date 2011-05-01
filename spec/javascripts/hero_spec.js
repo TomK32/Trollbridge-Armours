@@ -13,4 +13,7 @@ describe("Hero", function() {
   it("should have image", function() {
     expect(hero.image).toEqual('Thomas the Wellfed.png');
   });
+  it("should have money", function() {
+    expect(hero.money).toBeDefined();
+  });
 });
