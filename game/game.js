@@ -41,7 +41,7 @@ Game.prototype.sellItem = function(item, hero) {
   if(!hero.wishlist.find(item,0) || !this.player.inventory.find(item,0)) { return false; }
   this.player.inventory.remove(item);
   this.player.money += (item.value * item.amount);
-  this.player.lastAmount = item.value * item.amount;
+  this.player.lastSale = [item.name, item.value * item.amount];
   hero.wishlist.remove(item);
   hero.inventory.add(item);
   if(this.game_view) {
