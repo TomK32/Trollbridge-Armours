@@ -39,9 +39,13 @@
         game.heroes = [Hero.wendy(), Hero.cagua(), Hero.picasse(), Hero.riel()];
         game_view = new GameView('game_view', game);
         game.game_view = game_view;
-        $('#intro').remove();
+        $('#intro,#about').hide();
         return false;
       };
+      function showAbout() {
+        $('#game_view,#intro').hide();
+        $('#about').show();
+      }
       //$(document).ready(start);
     </script>
   </head>
@@ -64,9 +68,22 @@
         was very expensive but there's some <em>material in the inventory</em> left and also many
         <em>manuscripts</em> that will allow you to start the business and gain new customers.
       </p></form>
-      <p><a href="javascript:start();">start</a>
+      <p><a href="javascript:start();">start</a> • <a href="javascript:showAbout();">more about</a></p>
+    </section>
+    <section id="about" style="display: none;">
+      <p>
+      Trollbridge Armours has been created during the 48 hours of the Ludum Dare contest #20
+      in April/May 2011 by <a href="http://ananasblau.com">Thomas R. Koll</a> alone.
+      The technology is HTML, SVG (<a href="http://raphaeljs.com/">raphaeljs</a>) and a
+      lot of javascript which also includes jQuery and
+      <a href="http://pivotal.github.com/jasmine/">jasmine</a> for writing
+      the more than 80 specs/unit tests. Some of the hero images are taken from openclipart.org
+      but the other graphics are self-made.
+      </p>
+      <p><a href="javascript:start()">start</a></p>
+
     </section>
     <div id="game_view" style="display: none" width="800px" height="600px"></div>
-    <footer>&copy; 2011 by <a href="http://ananasblau.com">ananasblau.com</a></footer>
+    <footer>&copy; 2011 by <a href="http://ananasblau.com">ananasblau.com</a> • <a href="javascript:showAbout();">about</a></footer>
   <body>
 </html>
