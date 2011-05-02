@@ -35,7 +35,7 @@
         game.player.inventory.add(Ingredient.oak_wood(20));
         game.player.inventory.add(Ingredient.leather(10));
         game.player.inventory.add(Product.wooden_sword(10));
-        game.player.recipes = [Recipe.oak_plank(), Recipe.wooden_sword()];
+        game.player.recipes = [Recipe.oak_plank({children: [Recipe.wooden_shield()]}), Recipe.wooden_sword()];
         game.heroes = [Hero.wendy(), Hero.cagua(), Hero.picasse(), Hero.riel()];
         game_view = new GameView('game_view', game);
         game.game_view = game_view;

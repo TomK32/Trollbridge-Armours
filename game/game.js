@@ -2,7 +2,7 @@ var Game = function() {
   // some defaults
   this.player = new Player();
   this.inventory = this.player.inventory;
-  this.recipes = [];
+  this.recipes = this.player.recipes;
   this.heroes = [];
   this.timer = this.startLoop();
   this.game_view = null;
@@ -89,6 +89,7 @@ Game.prototype.combine = function(recipe, amount) {
     this.inventory.add(recipe.products[c], recipe.products[c].amount * amount);
   }
   recipe.incrementCounter(amount);
+  this.recipes.concat(recipe.childrenAvailable());
   this.inventory.compact();
   return true;
 }
