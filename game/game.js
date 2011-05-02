@@ -67,26 +67,28 @@ Game.prototype.buyItem = function(item, hero) {
 
 // return only the first matching
 Game.prototype.findRecipeFor = function(ingredients) {
-  for(c in this.player.recipes) {
+  for(var c in this.player.recipes) {
     if(this.player.recipes[c].fuzzyMatch(ingredients)) { return(this.player.recipes[c]); }
   }
   return false
 };
 
 Game.prototype.combine = function(recipe, amount) {
-  amount = amount||1; // default to 1
+  var amount = amount||1; // default to 1
+
   for(var c in recipe.ingredients) {
-    if(!this.inventory.find(recipe.ingredients[c])) {
+    if(!this.inventory.find(recipe.ingredients[c], recipe.ingredients[c].amount * amount)) {
       return false;
     }
   }
   // all ingredients found
   for(var c in recipe.ingredients) {
-    this.inventory.remove(recipe.ingredients[c]);
+    this.inventory.remove(recipe.ingredients[c], recipe.ingredients[c].amount * amount);
   }
   for(var c in recipe.products) {
-    this.inventory.add(recipe.products[c]);
+    this.inventory.add(recipe.products[c], recipe.products[c].amount * amount);
   }
+  recipe.incrementCounter(amount);
   this.inventory.compact();
   return true;
 }

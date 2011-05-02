@@ -43,6 +43,13 @@ describe("Game", function() {
       game.inventory.add(Ingredient.oak_wood(1))
       expect(game.combine(Recipe.oak_plank())).toBeFalsy()
     });
+    it("for a higher amount", function() {
+      game.inventory.add(Ingredient.oak_wood(4));
+      expect(game.inventory.find('Oak Plank')).toBeFalsy();
+      expect(game.combine(Recipe.oak_plank(), 3)).toBeFalsy();
+      expect(game.combine(Recipe.oak_plank(), 2)).toBeTruthy();
+      
+    });
   });
   describe("findRecipeFor", function() {
     beforeEach(function() {

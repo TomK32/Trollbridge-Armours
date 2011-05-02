@@ -24,7 +24,7 @@ HeroesView.prototype.redraw = function() {
   var row = -1;
   var col = 0;
   var cellsPerRow = Math.floor(this.canvas.canvas.offsetWidth / this.cellSize);
-  for(c in this.heroes) {
+  for(var c in this.heroes) {
     if(this.heroes[c].present) {
       if((col % cellsPerRow) == 0) { row += 1; }
       var image = this.canvas.rect((col % cellsPerRow) * this.cellSize+4,

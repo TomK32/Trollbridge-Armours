@@ -56,4 +56,41 @@ describe("Recipe", function() {
       expect(recipe.fuzzyMatch([Ingredient.oak_wood(3), Ingredient.leather(1), Ingredient.oak_plank(1)])).toBeTruthy();
     });
   });
+  describe("#incrementCounter", function() {
+    it("should increment counter", function() {
+      expect(recipe.incrementCounter(4).counter).toEqual(4);
+      expect(recipe.incrementCounter(2).counter).toEqual(6);
+    });
+    it("should return new recipes", function() {
+      var oak_plank = Recipe.oak_plank();
+      var lark_plank = new Recipe({name: 'Lark Plank', requirements: [[oak_plank, 10]]});
+      oak_plank.children = [lark_plank];
+      oak_plank.incrementCounter(10);
+      expect(oak_plank.childrenAvailable()).toEqual([lark_plank]);
+      expect(oak_plank.childrenAvailable()).toEqual([lark_plank]);
+    });
+    it("should return new recipes for complicated tree", function() {
+      var oak_plank = Recipe.oak_plank();
+      var wooden_sword = Recipe.wooden_sword();
+      var wooden_shield = new Recipe({name: 'Wooden Shield', requirements: [[oak_plank, 10], [wooden_sword, 1]]});
+      oak_plank.children = [wooden_shield];
+      oak_plank.incrementCounter(10);
+      expect(oak_plank.childrenAvailable()).toEqual([]);
+      wooden_sword.incrementCounter(1);
+      expect(oak_plank.childrenAvailable()).toEqual([wooden_shield]);
+    });
+  });
+  describe("tech tree", function() {
+    it("should have requirements", function() {
+      expect(recipe.requirements).toBeDefined();
+      expect(recipe.requirements).toEqual([]);
+    });
+    it("should have children", function() {
+      expect(recipe.children).toBeDefined();
+      expect(recipe.children).toEqual([]);
+    });
+    it("should have counter", function() {
+      expect(new Recipe({name:'Beer'}).counter).toEqual(0);
+    });
+  });
 });
