@@ -16,7 +16,7 @@ describe("Hero", function() {
   it("should have money", function() {
     expect(hero.money).toBeDefined();
   });
-  it("shoulve have wishlist", function() {
+  it("should have wishlist", function() {
     expect(hero.wishlist).toBeDefined();
   });
   it("should be present", function() {
@@ -26,10 +26,18 @@ describe("Hero", function() {
     hero.leave();
     expect(hero.present).toBeFalsy();
   });
-  it("#arrive", function() {
-    expect(hero.wishlist.items.length).toEqual(0);
-    hero.leave().arrive();
-    expect(hero.wishlist.items.length).toEqual(1);
-    expect(typeof(hero.wishlist.items[0])).toEqual('object');
+  describe("#arrive", function() {
+    it("should add to wishlist", function() {
+      expect(hero.wishlist.items.length).toEqual(0);
+      hero.leave().arrive();
+      expect(hero.wishlist.items.length).toEqual(1);
+      expect(typeof(hero.wishlist.items[0])).toEqual('object');
+    });
+    it("should add ingredient to inventory", function() {
+      expect(hero.inventory.items.length).toEqual(0);
+      hero.leave().arrive();
+      expect(hero.inventory.items.length).toEqual(1);
+      expect(typeof(hero.inventory.items[0])).toEqual('object');
+    });
   });
 });

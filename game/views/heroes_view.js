@@ -24,13 +24,13 @@ HeroesView.prototype.redraw = function() {
   var row = -1;
   var col = 0;
   var cellsPerRow = Math.floor(this.canvas.canvas.offsetWidth / this.cellSize);
-  for(c in this.heroes) {
+  for(var c in this.heroes) {
     if(this.heroes[c].present) {
       if((col % cellsPerRow) == 0) { row += 1; }
       var image = this.canvas.rect((col % cellsPerRow) * this.cellSize+4,
           row * this.cellSize+4, this.imageSize, this.imageSize)
         .attr({parent: this, row: c, fill: 'url(images/heroes/' + this.heroes[c].image + ')', 'stroke-width' : 0})
-        .click(this.clickCell);
+        .link(this.clickCell);
       if(this.heroes[c].wishlist.items.length > 0) {
         image.attr({'stroke-width': '1px', 'stroke': '#F00'})
       }
@@ -62,6 +62,11 @@ HeroesView.prototype.sellItem = function(event) {
   this.attrs.parent.hero_inventory.redraw();
 };
 
+HeroesView.prototype.buyItem = function(event) {
+  this.attrs.parent.game_view.game.buyItem(this.attrs.row, this.attrs.parent.hero_inventory.hero);
+  this.attrs.parent.hero_inventory.redraw();
+}
+
 var HeroInventoryView = function(hero_view, hero) {
   $.extend(this.__proto__, InventoryView);
   $.extend(this.__proto__, TableView);
@@ -72,6 +77,8 @@ var HeroInventoryView = function(hero_view, hero) {
   this.hero_view = hero_view;
   this.hero = hero;
   this.game_view = hero_view.game_view;
+  this.game_view.game.stopLoop();
+  this.game_view.redraw(true);
   this.parent = hero_view;
   this.canvas = new Raphael(this.x(0), this.y(0), this.parentWidth(), this.parentWidth());
   this.canvas.defaultCustomAttributes()
@@ -87,21 +94,34 @@ var HeroInventoryView = function(hero_view, hero) {
 
 HeroInventoryView.prototype.redraw = function() {
   this.canvas.clear();
+  if(this.selectedTab == 1 && this.data_source.items.length == 0) {
+    this.showHeroInventory();
+  }
   this.canvas.fillBackground('#eee').opaque();
-  this.renderTable(this.salesLink);
-  this.canvas.image('images/heroes/' + this.hero.image, 4, 4, 128, 128);
+  this.renderTable(this.selectedTab == 0 ? this.buyLink : this.sellLink);
+  this.canvas.image('images/heroes/' + this.hero.image, 4, 4, 128, 128).attr({parent: this}).link(this.closeInventory);
   this.canvas.text(142, 20, this.hero.name).default({'font-weight': 'bold'});
   this.tabs = [];
-  this.addTab(142, 50, 10, 'Inventory', true).default({parent: this}).click(this.showHeroInventory);
-  this.addTab(142, 50, 10, 'Wants to buy', true).default({parent: this}).click(this.showHeroWishlist);
+  this.addTab(142, 50, 15, 'Inventory', true).default({parent: this}).link(this.showHeroInventory);
+  if(this.selectedTab == 1 || this.hero.wishlist.items.length > 0) {
+    this.addTab(142, 50, 15, 'Wants to buy', true).default({parent: this}).link(this.showHeroWishlist);
+  }
   this.tabs[this.selectedTab].attr({'font-weight': 'bold'});
 
 };
 
-HeroInventoryView.prototype.salesLink = function(row, item) {
+HeroInventoryView.prototype.closeInventory = function(event) {
+  this.attrs.parent.parent.removeHeroDetails();
+  this.attrs.parent.parent.redraw();
+}
+HeroInventoryView.prototype.sellLink = function(row, item) {
   if(this.parent.game.player.inventory.find(item.name)) {
-    row.attr({fill: '#00A', parent: this, row: item}).click(this.sellItem);
+    row.attr({fill: '#00A', parent: this, row: item}).link(this.sellItem);
   }
+}
+HeroInventoryView.prototype.buyLink = function(row, item) {
+  if(!item.forSale) { return false; }
+  row.attr({fill: '#0A0', parent: this, row: item}).link(this.buyItem);
 }
 
 HeroInventoryView.prototype.addTab = function(x,y, margin, text, horizontal) {
@@ -122,7 +142,7 @@ HeroInventoryView.prototype.showHeroWishlist = function(event) {
   p.redraw();
 };
 HeroInventoryView.prototype.showHeroInventory = function(event) {
-  var p = this.attrs.parent;
+  var p = (this.attrs ? this.attrs.parent : this);
   p.selectedTab = 0; // TODO constants?
   p.data_source = p.hero.inventory;
   p.redraw();

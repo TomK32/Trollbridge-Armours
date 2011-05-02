@@ -13,4 +13,7 @@ describe("Product", function() {
     expect(new Product({name: 'A', value: 4.2 }).value).toEqual(4.2);
     expect(new Product({name: 'A', value: 0 }).value).toEqual(1);
   });
+  it("should not be for sale", function() {
+    expect(product.forSale).toBeFalsy();
+  });
 });

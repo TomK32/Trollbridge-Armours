@@ -29,9 +29,20 @@ describe("Ingredient", function() {
       });
     });
   });
+  it("should have value", function() {
+    expect(oak_wood.value).toBeDefined();
+    expect(new Ingredient({name: 'Air', value: 10}).value).toEqual(10);
+  });
+  it("should have default value", function() {
+    expect(oak_wood.value).toBeDefined();
+    expect(new Ingredient({name: 'Air'}).value).toEqual(1);
+  });
   describe("amount", function() {
     it("should be 1 by default", function() {
       expect(oak_wood.amount).toEqual(1);
     });
+  });
+  it("should be for sale", function() {
+    expect(new Ingredient({name: 'Air'}).forSale).toBeTruthy();
   });
 });

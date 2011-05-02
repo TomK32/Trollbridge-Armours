@@ -16,6 +16,8 @@ var GameView = function(target, game) {
   this.tabs = [this.inventory_view.canvas.canvas, this.workbench_view.canvas.canvas,
     this.heroes_view.canvas.canvas, this.help_view.canvas.canvas, this.recipes_view.canvas.canvas];
 
+  this.lastTimer = false;
+
   this.redraw();
   this.menu_view.show(false, this.menu_view.first.node.textContent.toLowerCase());
 };
@@ -23,7 +25,7 @@ var GameView = function(target, game) {
 GameView.prototype.showView = function(view, hide_others) {
   if(hide_others) { $(this.tabs).hide(); }
   // stopping to allow player work in this view
-  if(view == 'heroes') { this.game.stopLoop(); } else { this.game.startLoop(); }
+  this.game.startLoop();
   $(this[view + '_view'].canvas.canvas).show();
   this[view + '_view'].redraw();
   this.redraw(true)
@@ -33,7 +35,11 @@ GameView.prototype.redraw = function(skipSubviews) {
   this.canvas.image('images/shop.png', 0,0, 900, 600);
 
   this.canvas.text(this.canvas.canvas.offsetWidth-15, 15, 'v' + Game.version).default({'text-anchor': 'end'});
-  this.canvas.text(this.canvas.canvas.offsetWidth-20, this.canvas.canvas.offsetHeight-20, this.game.timer ? 'Pause' : 'Unpause').default({'text-anchor': 'end', parent: this}).click(function(e) { this.attrs.parent.game.toggleLoop(); });
+
+  var pause = this.canvas.text(this.canvas.canvas.offsetWidth-20, this.canvas.canvas.offsetHeight-20, this.game.timer ? 'Pause' : 'Unpause').default({'text-anchor': 'end', parent: this}).link(function(e) { this.attrs.parent.game.toggleLoop(); this.attrs.parent.redraw(true) });
+  if(this.game.timer != this.lastTimer) { pause.highlight(); }
+  this.lastTimer = this.game.timer;
+
   if(skipSubviews) { return; }
   this.inventory_view.redraw();
   this.workbench_view.redraw();

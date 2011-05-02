@@ -15,6 +15,10 @@ src_files:
     - lib/raphael-min.js
     - lib/**/*.js
     - game/product.js
+    - game/recipe.js
+    - game/ingredient.js
+    - game/hero.js
+    - game/data.js
     - game/**/*.js
 
 # stylesheets
