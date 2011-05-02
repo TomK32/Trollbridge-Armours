@@ -48,6 +48,20 @@ Game.prototype.sellItem = function(item, hero) {
   }
   return true;
 }
+
+Game.prototype.buyItem = function(item, hero) {
+  var o = $.extend({}, item);
+  if(!item.forSale || !item.value) { return }
+  o.amount = Math.min(item.amount, Math.floor(this.player.money / item.value));
+  if(o.amount < 1) { return false; }
+  this.player.inventory.add(o);
+  this.player.money -= (o.amount * o.value);
+  this.player.lastSale = [o.name, o.amount * o.value];
+  console.log(o);
+  hero.inventory.remove(o);
+  return true;
+}
+
 // return only the first matching
 Game.prototype.findRecipeFor = function(ingredients) {
   for(c in this.player.recipes) {

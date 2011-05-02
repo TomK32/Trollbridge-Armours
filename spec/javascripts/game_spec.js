@@ -69,6 +69,7 @@ describe("Game", function() {
     });
     it("should move item to hero", function() {
       expect(game.sellItem(Product.wooden_sword(1), hero)).toBeTruthy();
+      expect(hero.inventory.find('Wooden Sword',1)).toBeTruthy();
     });
     it("should not if player has no stock", function() {
       hero.wishlist.add(Product.wooden_shield(1));
@@ -77,6 +78,35 @@ describe("Game", function() {
     it("should not if hero doesn't want it", function() {
       game.player.inventory.add(Product.wooden_shield(1));
       expect(game.sellItem(Product.wooden_shield(1), hero)).toBeFalsy();
+    });
+  });
+  describe("#buyItem", function() {
+    beforeEach(function() {
+      game.player.inventory.items = [];
+      game.player.money = 10;
+      hero = new Hero({name: 'Hulk'});
+      hero.inventory.add(Ingredient.oak_plank(1));
+      hero.inventory.add(Ingredient.oak_wood(5));
+    });
+    it("should move item to player", function() {
+      expect(game.buyItem(Ingredient.oak_wood(1), hero)).toBeTruthy();
+      expect(game.inventory.find('Oak Wood',1)).toBeTruthy();
+    });
+    it("should subtrack money from player", function() {
+      expect(game.player.money).toEqual(10);
+      expect(game.buyItem(Ingredient.oak_wood(1), hero)).toBeTruthy();
+      expect(game.player.money).toEqual(9);
+      
+    });
+    it("should fail if not enough money", function() {
+      game.player.money = 0;
+      expect(game.buyItem(Ingredient.oak_wood(1), hero)).toBeFalsy();
+    });
+    it("should fail if item is not for sale", function() {
+      game.player.money = 20;
+      var oak = Ingredient.oak_wood(1);
+      oak.forSale = false;
+      expect(game.buyItem(oak, hero)).toBeFalsy();
     });
   });
 });

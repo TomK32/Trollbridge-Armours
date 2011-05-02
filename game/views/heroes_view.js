@@ -98,7 +98,9 @@ HeroInventoryView.prototype.redraw = function() {
   this.canvas.text(142, 20, this.hero.name).default({'font-weight': 'bold'});
   this.tabs = [];
   this.addTab(142, 50, 10, 'Inventory', true).default({parent: this}).link(this.showHeroInventory);
-  this.addTab(142, 50, 10, 'Wants to buy', true).default({parent: this}).link(this.showHeroWishlist);
+  if(this.selectedTab == 1 || this.hero.wishlist.items.length > 0) {
+    this.addTab(142, 50, 10, 'Wants to buy', true).default({parent: this}).link(this.showHeroWishlist);
+  }
   this.tabs[this.selectedTab].attr({'font-weight': 'bold'});
 
 };

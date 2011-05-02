@@ -25,7 +25,7 @@ var GameView = function(target, game) {
 GameView.prototype.showView = function(view, hide_others) {
   if(hide_others) { $(this.tabs).hide(); }
   // stopping to allow player work in this view
-  if(view == 'heroes') { this.game.stopLoop(); } else { this.game.startLoop(); }
+  this.game.startLoop();
   $(this[view + '_view'].canvas.canvas).show();
   this[view + '_view'].redraw();
   this.redraw(true)
