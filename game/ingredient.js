@@ -9,7 +9,7 @@ var Ingredient = function (attr) {
 Ingredient.define = function(name, defaults) {
   this[name] = function(amount) {
     i = new Ingredient(defaults);
-    i.amount = amount;
+    i.amount = amount||1;
     return i;
   }
 };

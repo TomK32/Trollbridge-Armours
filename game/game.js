@@ -53,12 +53,15 @@ Game.prototype.buyItem = function(item, hero) {
   var o = $.extend({}, item);
   if(!item.forSale || !item.value) { return }
   o.amount = Math.min(item.amount, Math.floor(this.player.money / item.value));
-  if(o.amount < 1) { return false; }
+  if(isNaN(o.amount) || o.amount < 1) { return false; }
   this.player.inventory.add(o);
   this.player.money -= (o.amount * o.value);
-  this.player.lastSale = [o.name, o.amount * o.value];
-  console.log(o);
+  this.player.lastSale = [o.name, -o.amount * o.value];
   hero.inventory.remove(o);
+  if(this.game_view) {
+    this.game_view.player_view.redraw();
+    this.game_view.inventory_view.redraw();
+  }
   return true;
 }
 
