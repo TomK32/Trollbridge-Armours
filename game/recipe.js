@@ -33,13 +33,3 @@ Recipe.define = function(name, defaults) {
     return new this(defaults);
   }
 };
-
-Recipe.allRecipes = {
-  oak_plank: { ingredients: [Ingredient.oak_wood(2)], products: [Ingredient.oak_plank(1)]},
-  wooden_sword: { ingredients: [Ingredient.oak_plank(1), Ingredient.leather(1)],
-        products: [Product.wooden_sword(1)]}
-};
-
-for(var key in Recipe.allRecipes) {
-  Recipe.define(key, Recipe.allRecipes[key]);
-};
