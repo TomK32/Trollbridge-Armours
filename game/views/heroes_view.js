@@ -23,7 +23,7 @@ HeroesView.prototype.redraw = function() {
 
   var row = -1;
   var col = 0;
-  var cellsPerRow = Math.floor(this.canvas.canvas.offsetWidth / this.cellSize);
+  var cellsPerRow = Math.floor(this.canvas.width / this.cellSize);
   for(var c in this.heroes) {
     if(this.heroes[c].present) {
       if((col % cellsPerRow) == 0) { row += 1; }
