@@ -34,9 +34,9 @@ GameView.prototype.redraw = function(skipSubviews) {
   this.canvas.clear();
   this.canvas.image('images/shop.png', 0,0, 900, 600);
 
-  this.canvas.text(this.canvas.canvas.offsetWidth-15, 15, 'v' + Game.version).default({'text-anchor': 'end'});
+  this.canvas.text(this.canvas.canvas.getBBox().width-15, 15, 'v' + Game.version).defaults({'text-anchor': 'end'});
 
-  var pause = this.canvas.text(this.canvas.canvas.offsetWidth-20, this.canvas.canvas.offsetHeight-20, this.game.timer ? 'Pause' : 'Unpause').default({'text-anchor': 'end', parent: this}).link(function(e) { this.attrs.parent.game.toggleLoop(); this.attrs.parent.redraw(true) });
+  var pause = this.canvas.text(this.canvas.width-20, this.canvas.height-20, this.game.timer ? 'Pause' : 'Unpause').defaults({'text-anchor': 'end', parent: this}).link(function(e) { this.attrs.parent.game.toggleLoop(); this.attrs.parent.redraw(true) });
   if(this.game.timer != this.lastTimer) { pause.highlight(); }
   this.lastTimer = this.game.timer;
 

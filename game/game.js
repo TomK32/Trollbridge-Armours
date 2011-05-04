@@ -8,7 +8,7 @@ var Game = function() {
   this.game_view = null;
 }
 
-Game.version = '0.1';
+Game.version = '0.1.1';
 
 Game.prototype.toggleLoop = function() {
   if (this.timer) { this.stopLoop(); }

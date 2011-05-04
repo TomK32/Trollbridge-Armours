@@ -23,7 +23,7 @@ HeroesView.prototype.redraw = function() {
 
   var row = -1;
   var col = 0;
-  var cellsPerRow = Math.floor(this.canvas.canvas.offsetWidth / this.cellSize);
+  var cellsPerRow = Math.floor(this.canvas.width / this.cellSize);
   for(var c in this.heroes) {
     if(this.heroes[c].present) {
       if((col % cellsPerRow) == 0) { row += 1; }
@@ -100,11 +100,11 @@ HeroInventoryView.prototype.redraw = function() {
   this.canvas.fillBackground('#eee').opaque();
   this.renderTable(this.selectedTab == 0 ? this.buyLink : this.sellLink);
   this.canvas.image('images/heroes/' + this.hero.image, 4, 4, 128, 128).attr({parent: this}).link(this.closeInventory);
-  this.canvas.text(142, 20, this.hero.name).default({'font-weight': 'bold'});
+  this.canvas.text(142, 20, this.hero.name).defaults({'font-weight': 'bold'});
   this.tabs = [];
-  this.addTab(142, 50, 15, 'Inventory', true).default({parent: this}).link(this.showHeroInventory);
+  this.addTab(142, 50, 15, 'Inventory', true).defaults({parent: this}).link(this.showHeroInventory);
   if(this.selectedTab == 1 || this.hero.wishlist.items.length > 0) {
-    this.addTab(142, 50, 15, 'Wants to buy', true).default({parent: this}).link(this.showHeroWishlist);
+    this.addTab(142, 50, 15, 'Wants to buy', true).defaults({parent: this}).link(this.showHeroWishlist);
   }
   this.tabs[this.selectedTab].attr({'font-weight': 'bold'});
 
@@ -126,8 +126,8 @@ HeroInventoryView.prototype.buyLink = function(row, item) {
 
 HeroInventoryView.prototype.addTab = function(x,y, margin, text, horizontal) {
   if (this.tabs.length > 0) {
-    if (horizontal) { x += this.tabs.slice(-1,1)[0][0].offsetWidth + margin; }
-    else { y += this.tabs.slice(-1,1)[0][0].offsetTop + margin; }
+    if (horizontal) { x += this.tabs.slice(-1,1)[0][0].getBBox().width + margin; }
+    else { y += this.tabs.slice(-1,1)[0][0].getBBox().top + margin; }
   }
 
   var tab = this.canvas.text(x, y, text);
