@@ -126,8 +126,8 @@ HeroInventoryView.prototype.buyLink = function(row, item) {
 
 HeroInventoryView.prototype.addTab = function(x,y, margin, text, horizontal) {
   if (this.tabs.length > 0) {
-    if (horizontal) { x += this.tabs.slice(-1,1)[0][0].offsetWidth + margin; }
-    else { y += this.tabs.slice(-1,1)[0][0].offsetTop + margin; }
+    if (horizontal) { x += this.tabs.slice(-1,1)[0][0].getBBox().width + margin; }
+    else { y += this.tabs.slice(-1,1)[0][0].getBBox().top + margin; }
   }
 
   var tab = this.canvas.text(x, y, text);

@@ -24,9 +24,8 @@ MenuView.prototype.redraw = function() {
 }
 
 MenuView.prototype.leftMargin = function(l) {
-  var t = $($(':last', l)[0]);
-  var left = Math.max($(l).offset().left, t.offset().left);
-  return left + t.width();
+  var t = l[0].getBBox();
+  return t.x + t.width;
 }
 MenuView.prototype.showInventory = function(event) {
   this.attrs.parent.show(event, 'inventory');
