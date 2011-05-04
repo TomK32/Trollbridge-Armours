@@ -100,11 +100,11 @@ HeroInventoryView.prototype.redraw = function() {
   this.canvas.fillBackground('#eee').opaque();
   this.renderTable(this.selectedTab == 0 ? this.buyLink : this.sellLink);
   this.canvas.image('images/heroes/' + this.hero.image, 4, 4, 128, 128).attr({parent: this}).link(this.closeInventory);
-  this.canvas.text(142, 20, this.hero.name).default({'font-weight': 'bold'});
+  this.canvas.text(142, 20, this.hero.name).defaults({'font-weight': 'bold'});
   this.tabs = [];
-  this.addTab(142, 50, 15, 'Inventory', true).default({parent: this}).link(this.showHeroInventory);
+  this.addTab(142, 50, 15, 'Inventory', true).defaults({parent: this}).link(this.showHeroInventory);
   if(this.selectedTab == 1 || this.hero.wishlist.items.length > 0) {
-    this.addTab(142, 50, 15, 'Wants to buy', true).default({parent: this}).link(this.showHeroWishlist);
+    this.addTab(142, 50, 15, 'Wants to buy', true).defaults({parent: this}).link(this.showHeroWishlist);
   }
   this.tabs[this.selectedTab].attr({'font-weight': 'bold'});
 

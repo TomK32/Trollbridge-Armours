@@ -24,7 +24,7 @@ WorkbenchView.prototype.redraw = function(frameDuration, totalDuration, frameNum
   this.renderTable();
   if(this.data_source.items.length > 0) {
     this.canvas.text(this.canvas.width / 2, 20, 'Combine')
-      .default({parent: this}).button(this.combine);
+      .defaults({parent: this}).button(this.combine);
   }
 };
 
