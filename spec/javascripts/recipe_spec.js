@@ -17,7 +17,7 @@ describe("Recipe", function() {
   });
   describe("pre-defined recipes", function() {
     it("should have oak_plank", function() {
-      var recipe = Recipe.all.oak_plank;
+      var recipe = Recipe.oak_plank;
       expect(recipe.ingredients).toEqual([Ingredient.oak_wood(2)]);
       expect(recipe.products).toEqual([Ingredient.oak_plank(1)]);
     });
@@ -58,8 +58,8 @@ describe("Recipe", function() {
   });
   describe("#incrementCounter", function() {
     beforeEach(function() {
-      for (c in Recipe.all) {
-        Recipe.all[c].counter = 0;
+      for (c in Recipe) {
+        Recipe[c].counter = 0;
       }
     });
     it("should increment counter", function() {
@@ -67,18 +67,16 @@ describe("Recipe", function() {
       expect(recipe.incrementCounter(2).counter).toEqual(6);
     });
     it("should return new recipes", function() {
-      var oak_plank = Recipe.all.oak_plank;
-      var lark_plank = new Recipe({name: 'Lark Plank', requirements: [[oak_plank, 10]]});
-      oak_plank.children = [lark_plank];
+      var oak_plank = Recipe.oak_plank;
+      var lark_plank = Recipe.define('lark_plank', {name: 'Lark Plank', requirements: [[oak_plank, 10]]});
       oak_plank.incrementCounter(10);
       expect(oak_plank.childrenAvailable()).toEqual([lark_plank]);
       expect(oak_plank.childrenAvailable()).toEqual([lark_plank]);
     });
     it("should return new recipes for complicated tree", function() {
-      var oak_plank = Recipe.all.oak_plank;
-      var wooden_sword = Recipe.all.wooden_sword;
-      var wooden_shield = new Recipe({name: 'Wooden Shield', requirements: [[oak_plank, 10], [wooden_sword, 1]]});
-      oak_plank.children = [wooden_shield];
+      var oak_plank = Recipe.oak_plank;
+      var wooden_sword = Recipe.wooden_sword;
+      var wooden_shield = Recipe.define('wooden_shield', {name: 'Wooden Shield', requirements: [[oak_plank, 10], [wooden_sword, 1]]});
       oak_plank.incrementCounter(10);
       expect(oak_plank.childrenAvailable()).toEqual([]);
       wooden_sword.incrementCounter(1);
@@ -92,10 +90,17 @@ describe("Recipe", function() {
     });
     it("should have children", function() {
       expect(recipe.children).toBeDefined();
-      expect(recipe.children).toEqual([]);
+      expect(recipe.children()).toEqual([]);
     });
     it("should have counter", function() {
       expect(new Recipe({name:'Beer'}).counter).toEqual(0);
     });
+  });
+  it("#roots", function() {
+    var p,c;
+    p = Recipe.define('parent', {name: 'parent'})
+    c = Recipe.define('child', {name: 'child', requirements: [[p, 1]]})
+    expect(Recipe.roots()).toContain(p);
+    expect(Recipe.roots()).not.toContain(c);
   });
 });

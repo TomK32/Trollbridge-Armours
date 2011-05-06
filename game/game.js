@@ -55,7 +55,8 @@ Game = (function() {
     }
   };
   Game.prototype.timeElapsedHuman = function() {
-    var e;
+    var e, t;
+    t = "";
     e = (new Date() - this.timeStarted) / 1000;
     if (e > 3600) {
       t += Math.floor(e / 3600) + ':';

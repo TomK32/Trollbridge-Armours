@@ -10,7 +10,6 @@ class Recipe
     @ingredients = attr.ingredients || []
     @products = attr.products || []
     @requirements = attr.requirements||[]
-    @children = attr.children||[]
     @counter = 0
     @satisfied = false
 
@@ -29,15 +28,25 @@ class Recipe
     @counter += amount
     @
 
+  children: ->
+    if @cachedChildren? then return @cachedChildren
+    @cachedChildren = []
+    for child in Recipe.all
+      for req in child.requirements
+        if req[0] == @ then @cachedChildren.push child
+    @cachedChildren
+
   childrenAvailable: ->
     result = []
-    for child in @children
+    for child in @children()
       result.push child if child.available()
     result
 
   available: ->
     if @satisfied then return true
     for requirement in @requirements
+      if typeof(requirement[0]) == 'string'
+        requirement[0] = eval(requirement[0])
       if requirement[0].counter < requirement[1] then return false
 
     @satisfied = true
@@ -50,5 +59,13 @@ class Recipe
 
     return @name + ' (' + s.join(', ') + ')'
 
-  @define: (name, defaults) ->
-    Recipe.all[name] = new Recipe(defaults)
+  @roots: ->
+    result = []
+    for recipe in @all
+      if recipe.requirements.length == 0 then result.push recipe
+    result
+
+  @define = (name, attr) ->
+    recipe = new Recipe(attr)
+    Recipe.all.push recipe
+    Recipe[name] = recipe

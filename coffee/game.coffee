@@ -41,6 +41,7 @@ class Game
 
 
   timeElapsedHuman: ->
+    t = ""
     e = (new Date() - @timeStarted) / 1000
     if e > 3600 then t += Math.floor(e / 3600) + ':'
     if e > 60   then t += Math.floor(e / 60 % 60) + ':'

@@ -9,7 +9,6 @@ Recipe = (function() {
     this.ingredients = attr.ingredients || [];
     this.products = attr.products || [];
     this.requirements = attr.requirements || [];
-    this.children = attr.children || [];
     this.counter = 0;
     this.satisfied = false;
   }
@@ -34,10 +33,29 @@ Recipe = (function() {
     this.counter += amount;
     return this;
   };
+  Recipe.prototype.children = function() {
+    var child, req, _i, _j, _len, _len2, _ref, _ref2;
+    if (this.cachedChildren != null) {
+      return this.cachedChildren;
+    }
+    this.cachedChildren = [];
+    _ref = Recipe.all;
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      child = _ref[_i];
+      _ref2 = child.requirements;
+      for (_j = 0, _len2 = _ref2.length; _j < _len2; _j++) {
+        req = _ref2[_j];
+        if (req[0] === this) {
+          this.cachedChildren.push(child);
+        }
+      }
+    }
+    return this.cachedChildren;
+  };
   Recipe.prototype.childrenAvailable = function() {
     var child, result, _i, _len, _ref;
     result = [];
-    _ref = this.children;
+    _ref = this.children();
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       child = _ref[_i];
       if (child.available()) {
@@ -54,6 +72,9 @@ Recipe = (function() {
     _ref = this.requirements;
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       requirement = _ref[_i];
+      if (typeof requirement[0] === 'string') {
+        requirement[0] = eval(requirement[0]);
+      }
       if (requirement[0].counter < requirement[1]) {
         return false;
       }
@@ -71,8 +92,23 @@ Recipe = (function() {
     }
     return this.name + ' (' + s.join(', ') + ')';
   };
-  Recipe.define = function(name, defaults) {
-    return Recipe.all[name] = new Recipe(defaults);
+  Recipe.roots = function() {
+    var recipe, result, _i, _len, _ref;
+    result = [];
+    _ref = this.all;
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      recipe = _ref[_i];
+      if (recipe.requirements.length === 0) {
+        result.push(recipe);
+      }
+    }
+    return result;
+  };
+  Recipe.define = function(name, attr) {
+    var recipe;
+    recipe = new Recipe(attr);
+    Recipe.all.push(recipe);
+    return Recipe[name] = recipe;
   };
   return Recipe;
 })();

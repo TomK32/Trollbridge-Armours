@@ -14,11 +14,18 @@ Join the booming weapon industry and manufacture everyone's favourite battle gea
 From woodden swords to legendary swords, from shields fitting this odd round hole
 in you shop door to siege towers. Everything can be sold and everyone's a customer.
 
+Compiling the javascript
+========================
+
+coffee -cwb -o game/ coffee/*coffee
+
+
 Running the tests
 =================
 
 Specs are written with jasmine, just run `gem install jasmine; rake jasmine` in your console
 and open your browser at http://localhost:8888
+
 
 Copyright
 =========
