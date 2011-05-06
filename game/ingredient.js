@@ -1,25 +1,31 @@
-var Ingredient = function (attr) {
-  this.name = attr.name;
-  this.category = attr.category||attr.name;
-  this.amount = attr.amount||1;
-  this.value = attr.value||1;
-  this.forSale = attr.sale||true;
-};
-
-Ingredient.define = function(name, defaults) {
-  this[name] = function(amount) {
-    i = new Ingredient(defaults);
-    i.amount = amount||1;
-    return i;
+var Ingredient;
+Ingredient = (function() {
+  function Ingredient(attrs) {
+    this.name = attrs.name;
+    this.category = attrs.category || 'Something';
+    this.amount = attrs.amount || 1;
+    this.value = attrs.value || 1;
+    this.forSale = attrs.sale || true;
   }
-};
-
-Ingredient.random = function() {
-  var keys = Object.keys(Ingredient.allIngredients);
-  return Ingredient[keys[Math.floor(Math.random() * keys.length)]].call();
-};
-
-
-Ingredient.prototype.to_s = function() {
-  return (this.amount ? this.amount + "x " : '') + this.name + " (" + this.category + ")";
-};
+  Ingredient.define = function(name, defaults) {
+    return Ingredient[name] = function(amount) {
+      var i;
+      i = new Ingredient(defaults);
+      i.amount = amount || 1;
+      return i;
+    };
+  };
+  Ingredient.prototype.to_s = function() {
+    if (this.amount > 0) {
+      return this.amount + "x " + this.name + " (" + this.category + ")";
+    } else {
+      return this.name + " (" + this.category + ")";
+    }
+  };
+  Ingredient.random = function() {
+    var keys;
+    keys = Object.keys(Ingredient.allIngredients);
+    return Ingredient[keys[Math.floor(Math.random() * keys.length)]].call();
+  };
+  return Ingredient;
+})();

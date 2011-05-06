@@ -48,6 +48,10 @@ GameView.prototype.redraw = function(skipSubviews) {
   this.menu_view.redraw();
 };
 
+GameView.prototype.redrawTimer = function() {
+  if(this.timer && !this.timer.removed) { this.timer.remove(); this.timer = false};
+  this.timer = this.canvas.text(this.canvas.canvas.getBBox().width-15, 35, this.game.timeElapsedHuman()).defaults({'text-anchor': 'end'});
+}
 
 GameView.prototype.selectIngredient = function(item) {
   var inventory_item = this.inventory_view.inventory.find(item, 0);
