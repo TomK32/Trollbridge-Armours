@@ -7,12 +7,9 @@ class Game
   constructor: ->
     @player = new Player()
     @inventory = @player.inventory
-    @recipes = @player.recipes
     @heroes = []
     @timer = @startLoop()
     @game_view = false
-    @timeStarted = 0
-    @timeElapsed = 0
 
 
   toggleLoop: ->
@@ -20,8 +17,6 @@ class Game
 
 
   startLoop: ->
-    if(@timeStarted) then @timeElapsed = new Date() - @timeStarted
-    @timeStarted = new Date()
     if @timer then false
     @timer = setInterval(@tick, 333, @) # ~ 3/sec
 
@@ -31,21 +26,12 @@ class Game
 
   tick: (game) ->
     if !game.game_view then return false
-    game.game_view.redrawTimer()
     if Math.random() <0.1
       hero = game.heroes[Math.floor(Math.random()*game.heroes.length)]
       if hero
         if hero.present then hero.leave() else hero.arrive()
         game.game_view.redraw(true)
         game.game_view.heroes_view.redraw()
-
-
-  timeElapsedHuman: ->
-    t = ""
-    e = (new Date() - @timeStarted) / 1000
-    if e > 3600 then t += Math.floor(e / 3600) + ':'
-    if e > 60   then t += Math.floor(e / 60 % 60) + ':'
-    t += Math.floor(e % 60)
 
   sellItem: (item) ->
     if !hero.wishlist.find(item,0) || !@player.inventory.find(item,0) then return false
@@ -86,7 +72,6 @@ class Game
     for ingredient in recipe.ingredients
       if !@inventory.find(ingredient, ingredient.amount * amount)
         return false
-
     # all ingredients found
     for ingredient in recipe.ingredients
       @inventory.remove(ingredient, ingredient.amount * amount)

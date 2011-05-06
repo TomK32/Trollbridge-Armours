@@ -48,7 +48,6 @@ class Recipe
       if typeof(requirement[0]) == 'string'
         requirement[0] = eval(requirement[0])
       if requirement[0].counter < requirement[1] then return false
-
     @satisfied = true
     @
 

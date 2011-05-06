@@ -11,8 +11,6 @@ Game = (function() {
     this.heroes = [];
     this.timer = this.startLoop();
     this.game_view = false;
-    this.timeStarted = 0;
-    this.timeElapsed = 0;
   }
   Game.prototype.toggleLoop = function() {
     if (this.timer) {
@@ -22,10 +20,6 @@ Game = (function() {
     }
   };
   Game.prototype.startLoop = function() {
-    if (this.timeStarted) {
-      this.timeElapsed = new Date() - this.timeStarted;
-    }
-    this.timeStarted = new Date();
     if (this.timer) {
       false;
     }
@@ -40,7 +34,6 @@ Game = (function() {
     if (!game.game_view) {
       return false;
     }
-    game.game_view.redrawTimer();
     if (Math.random() < 0.1) {
       hero = game.heroes[Math.floor(Math.random() * game.heroes.length)];
       if (hero) {
@@ -53,18 +46,6 @@ Game = (function() {
         return game.game_view.heroes_view.redraw();
       }
     }
-  };
-  Game.prototype.timeElapsedHuman = function() {
-    var e, t;
-    t = "";
-    e = (new Date() - this.timeStarted) / 1000;
-    if (e > 3600) {
-      t += Math.floor(e / 3600) + ':';
-    }
-    if (e > 60) {
-      t += Math.floor(e / 60 % 60) + ':';
-    }
-    return t += Math.floor(e % 60);
   };
   Game.prototype.sellItem = function(item) {
     if (!hero.wishlist.find(item, 0) || !this.player.inventory.find(item, 0)) {
