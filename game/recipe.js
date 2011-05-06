@@ -34,23 +34,23 @@ Recipe = (function() {
     return this;
   };
   Recipe.prototype.children = function() {
-    var child, req, _i, _j, _len, _len2, _ref, _ref2;
-    if (this.cachedChildren != null) {
-      return this.cachedChildren;
-    }
-    this.cachedChildren = [];
+    var child, req, result, _i, _j, _len, _len2, _ref, _ref2;
+    result = [];
     _ref = Recipe.all;
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       child = _ref[_i];
       _ref2 = child.requirements;
       for (_j = 0, _len2 = _ref2.length; _j < _len2; _j++) {
         req = _ref2[_j];
-        if (req[0] === this) {
-          this.cachedChildren.push(child);
+        if (typeof req[0] === 'string') {
+          req[0] = eval(req[0]);
+        }
+        if (req[0].name === this.name) {
+          result.push(child);
         }
       }
     }
-    return this.cachedChildren;
+    return result;
   };
   Recipe.prototype.childrenAvailable = function() {
     var child, result, _i, _len, _ref;

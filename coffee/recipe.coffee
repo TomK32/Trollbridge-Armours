@@ -29,12 +29,13 @@ class Recipe
     @
 
   children: ->
-    if @cachedChildren? then return @cachedChildren
-    @cachedChildren = []
+    result = []
     for child in Recipe.all
       for req in child.requirements
-        if req[0] == @ then @cachedChildren.push child
-    @cachedChildren
+        if typeof(req[0]) == 'string'
+          req[0] = eval(req[0])
+        if req[0].name == @.name then result.push child
+    result
 
   childrenAvailable: ->
     result = []

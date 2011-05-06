@@ -7,6 +7,7 @@ class Game
   constructor: ->
     @player = new Player()
     @inventory = @player.inventory
+    @recipes = @player.recipes
     @heroes = []
     @timer = @startLoop()
     @game_view = false
@@ -17,8 +18,8 @@ class Game
 
 
   startLoop: ->
-    if @timer then false
-    @timer = setInterval(@tick, 333, @) # ~ 3/sec
+    if @timer then return false
+    @timer = setInterval(@tick, 50, @) # ~ 20/sec
 
   stopLoop: ->
     clearInterval(@timer)
@@ -33,19 +34,23 @@ class Game
         game.game_view.redraw(true)
         game.game_view.heroes_view.redraw()
 
-  sellItem: (item) ->
+  sellItem: (item, hero) ->
     if !hero.wishlist.find(item,0) || !@player.inventory.find(item,0) then return false
-    @player.inventory.remove(item)
-    @player.money += (item.value * item.amount)
-    @player.lastSale = [item.name, item.value * item.amount]
-    hero.wishlist.remove(item)
-    hero.inventory.add(item)
+    player_item = @player.inventory.find(item,0)
+    return false if !player_item
+    o = $.extend({}, item)
+    o.amount = Math.min(player_item.amount, item.amount)
+    @player.money += (player_item.value * o.amount)
+    @player.lastSale = [item.name, item.value * o.amount]
+    @player.inventory.remove(o)
+    hero.wishlist.remove(o)
+    hero.inventory.add(o)
     if @game_view
       @game_view.player_view.redraw()
       @game_view.inventory_view.redraw()
     true
 
-  buyItem: (item) ->
+  buyItem: (item, hero) ->
     o = $.extend({}, item)
     if !item.forSale || !item.value then return false
     o.amount = Math.min(item.amount, Math.floor(@player.money / item.value))
@@ -80,6 +85,7 @@ class Game
       @inventory.add(product, product.amount * amount)
 
     recipe.incrementCounter amount
-    @recipes.concat recipe.childrenAvailable()
+    for child in recipe.childrenAvailable()
+      if @player.recipes.indexOf(child) == -1 then @player.recipes.push child
     @inventory.compact()
     return true

@@ -68,7 +68,7 @@ allRecipes = {
   wooden_shield: {
     ingredients: [Ingredient.oak_plank(2)],
     products: [Product.wooden_sword(1)],
-    requirements: [Ingredient.oak_plank(), 10]
+    requirements: [['Recipe.oak_plank', 2]]
   },
   iron: {
     ingredients: [Ingredient.iron_ore(2)],
@@ -76,7 +76,8 @@ allRecipes = {
   },
   iron_sword: {
     ingredients: [Ingredient.iron(3), Ingredient.leather(1)],
-    products: [Product.iron_sword(1)]
+    products: [Product.iron_sword(1)],
+    requirements: [['Recipe.iron', 3]]
   },
   mask: {
     requirements: [['Recipe.oak_plank', 10]],

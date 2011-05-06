@@ -70,6 +70,7 @@ describe("Game", function() {
   });
   describe("#sellItem", function() {
     beforeEach(function() {
+      game.player = new Player();
       game.player.inventory.add(Product.wooden_sword(2));
       hero = new Hero({name: 'Hulk'});
       hero.wishlist.add(Product.wooden_sword(1));
@@ -81,6 +82,11 @@ describe("Game", function() {
     it("should not if player has no stock", function() {
       hero.wishlist.add(Product.wooden_shield(1));
       expect(game.sellItem(Product.wooden_shield(1), hero)).toBeFalsy();
+    });
+    it("should limit to match player's stock", function() {
+      expect(game.sellItem(Product.wooden_sword(3), hero)).toBeTruthy();
+      expect(game.player.inventory.find('Wooden Sword')).toBeFalsy();
+      expect(hero.inventory.find('Wooden Sword').amount).toEqual(2);
     });
     it("should not if hero doesn't want it", function() {
       game.player.inventory.add(Product.wooden_shield(1));
