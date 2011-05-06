@@ -1,12 +1,12 @@
 describe("Recipe", function() {
   beforeEach(function() {
-    recipe = new Recipe({name: 'Wooden Sword', ingredients: [Ingredient.oak_wood(3), Ingredient.leather(1)], products: [Product.wooden_sword()]});
+    recipe = new Recipe({name: 'Wooden Sword', ingredients: [Ingredient.oak_wood(3), Ingredient.leather(1)], products: [Product.wooden_sword]});
   });
   it("should have name", function() {
     expect(recipe.name).toEqual('Wooden Sword');
   });
   it("should use product's name as fallback", function() {
-    var r = new Recipe({ingredients: [Ingredient.oak_wood(2)], products: [Ingredient.oak_plank()]});
+    var r = new Recipe({ingredients: [Ingredient.oak_wood(2)], products: [Ingredient.oak_plank(1)]});
     expect(r.name).toEqual('Oak Plank');
   });
   it("should have ingredients", function() {
@@ -17,7 +17,7 @@ describe("Recipe", function() {
   });
   describe("pre-defined recipes", function() {
     it("should have oak_plank", function() {
-      var recipe = Recipe.oak_plank();
+      var recipe = Recipe.all.oak_plank;
       expect(recipe.ingredients).toEqual([Ingredient.oak_wood(2)]);
       expect(recipe.products).toEqual([Ingredient.oak_plank(1)]);
     });
@@ -57,12 +57,17 @@ describe("Recipe", function() {
     });
   });
   describe("#incrementCounter", function() {
+    beforeEach(function() {
+      for (c in Recipe.all) {
+        Recipe.all[c].counter = 0;
+      }
+    });
     it("should increment counter", function() {
       expect(recipe.incrementCounter(4).counter).toEqual(4);
       expect(recipe.incrementCounter(2).counter).toEqual(6);
     });
     it("should return new recipes", function() {
-      var oak_plank = Recipe.oak_plank();
+      var oak_plank = Recipe.all.oak_plank;
       var lark_plank = new Recipe({name: 'Lark Plank', requirements: [[oak_plank, 10]]});
       oak_plank.children = [lark_plank];
       oak_plank.incrementCounter(10);
@@ -70,8 +75,8 @@ describe("Recipe", function() {
       expect(oak_plank.childrenAvailable()).toEqual([lark_plank]);
     });
     it("should return new recipes for complicated tree", function() {
-      var oak_plank = Recipe.oak_plank();
-      var wooden_sword = Recipe.wooden_sword();
+      var oak_plank = Recipe.all.oak_plank;
+      var wooden_sword = Recipe.all.wooden_sword;
       var wooden_shield = new Recipe({name: 'Wooden Shield', requirements: [[oak_plank, 10], [wooden_sword, 1]]});
       oak_plank.children = [wooden_shield];
       oak_plank.incrementCounter(10);

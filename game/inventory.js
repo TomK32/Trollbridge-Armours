@@ -1,52 +1,71 @@
-var Inventory = function(items) {
-  this.items = items||[];
-};
-
-// returns item if found and matching the (optional) amount
-Inventory.prototype.find = function(what, amount) {
-  if(typeof(what) == "object") {
-    if(typeof(amount) == "undefined" && what.amount) {
-      var amount = what.amount;
-    }
-    var what = what.name;
+/*
+   Trollbridge-Armours/Inventory
+   (C) 2011 by Thomas R. Koll, ananasblau.com
+*/var Inventory;
+Inventory = (function() {
+  function Inventory(items) {
+    this.items = items || [];
   }
-  for(var c in this.items) {
-    if(this.items[c].name == what) {
-      if(amount) {
-        if(this.items[c].amount >= amount) {
-          var n = jQuery.extend(true, {}, this.items[c]);
-          n.amount = amount
-          return n;
-        } else { return false; }
-      } else {
-        return this.items[c];
+  Inventory.prototype.find = function(what, amount) {
+    var item, n, _i, _len, _ref;
+    if (typeof what === "object") {
+      if (typeof amount === "undefined" && what.amount) {
+        amount = what.amount;
+      }
+      what = what.name;
+    }
+    _ref = this.items;
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      item = _ref[_i];
+      if (item.name === what) {
+        if (amount) {
+          if (item.amount >= amount) {
+            n = jQuery.extend(true, {}, item);
+            n.amount = amount;
+            return n;
+          } else {
+            return false;
+          }
+        } else {
+          return item;
+        }
       }
     }
-  }
-  return false;
-};
-
-Inventory.prototype.add = function(other) {
-  var stock = this.find(other.name);
-  if(stock) {
-    stock.amount += other.amount;
-  } else {
-    this.items.push($.extend(true, {}, other));
-  }
-  return this;
-};
-
-Inventory.prototype.remove = function(other) {
-  var stock = this.find(other.name);
-  if(stock && stock.amount >= other.amount) {
-    stock.amount -= other.amount;
-    if(stock.amount == 0) { this.items.splice(this.items.indexOf(stock),1); return true; }
+    return false;
+  };
+  Inventory.prototype.add = function(other) {
+    var stock;
+    stock = this.find(other.name);
+    if (stock) {
+      stock.amount += other.amount;
+    } else {
+      this.items.push($.extend(true, {}, other));
+    }
     return this;
-  } else { return false; }
-};
-
-Inventory.prototype.compact = function() {
-  for(var c in this.items) {
-    if(this.items[c].amount == 0) { this.items.splice(c,1) }
-  }
-}
+  };
+  Inventory.prototype.remove = function(other) {
+    var stock;
+    stock = this.find(other.name);
+    if (stock && stock.amount >= other.amount) {
+      stock.amount -= other.amount;
+      if (stock.amount === 0) {
+        this.items.splice(this.items.indexOf(stock), 1);
+        return true;
+      }
+      return this;
+    } else {
+      return false;
+    }
+  };
+  Inventory.prototype.compact = function() {
+    var item, _i, _len, _ref, _results;
+    _ref = this.items;
+    _results = [];
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      item = _ref[_i];
+      _results.push(item.amount === 0 ? item = _ref.splice(_i, 1) : void 0);
+    }
+    return _results;
+  };
+  return Inventory;
+})();

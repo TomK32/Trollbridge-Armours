@@ -1,3 +1,7 @@
+###
+   Trollbridge-Armours/Hero
+   (C) 2011 by Thomas R. Koll, ananasblau.com
+###
 class Hero extends Money
   constructor: (attr) ->
     @name = attr.name
@@ -6,7 +10,6 @@ class Hero extends Money
     @money = 20
     @present = true
     @wishlist = new Inventory
-
 
   leave: ->
     if @wishlist.items.length > 0 and Math.random < 0.1

@@ -1,13 +1,15 @@
-var Money;
+/*
+   Trollbridge-Armours/Money
+   (C) 2011 by Thomas R. Koll, ananasblau.com
+*/var Money;
 Money = (function() {
   function Money() {}
-  Money.transfer = function(target, amount) {
+  Money.prototype.transfer = function(target, amount) {
     if (this.money < amount) {
       return false;
     }
     this.money -= amount;
-    target.money += amount;
-    return this;
+    return target.money += amount;
   };
   return Money;
 })();

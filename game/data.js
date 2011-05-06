@@ -25,19 +25,19 @@ for(var key in Product.allProducts) {
 };
 
 
-Recipe.allRecipes = {
+var allRecipes = {
   oak_plank: { ingredients: [Ingredient.oak_wood(2)], products: [Ingredient.oak_plank(1)]},
   wooden_sword: { ingredients: [Ingredient.oak_plank(1), Ingredient.leather(1)],
         products: [Product.wooden_sword(1)]},
   wooden_shield: { ingredients: [Ingredient.oak_plank(2)],
-        products: [Product.wooden_sword(1)], requirements: [Ingredient.oak_plank, 10] },
+        products: [Product.wooden_sword(1)], requirements: [Ingredient.oak_plank(), 10] },
   iron: {ingredients: [Ingredient.iron_ore(2)], products: [Ingredient.iron(1)]},
   iron_sword: {ingredients: [Ingredient.iron(3), Ingredient.leather(1)], products: [Product.iron_sword(1)]},
   mask: {ingredients: [Ingredient.oak_plank(1), Ingredient.oak_wood(1)], products: [Product.mask(1)]}
 };
 
-for(var key in Recipe.allRecipes) {
-  Recipe.define(key, Recipe.allRecipes[key]);
+for(var key in allRecipes) {
+  Recipe.define(key, allRecipes[key]);
 };
 
 

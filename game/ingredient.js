@@ -1,4 +1,7 @@
-var Ingredient;
+/*
+   Trollbridge-Armours/Ingredient
+   (C) 2011 by Thomas R. Koll, ananasblau.com
+*/var Ingredient;
 Ingredient = (function() {
   function Ingredient(attrs) {
     this.name = attrs.name;

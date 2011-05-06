@@ -58,8 +58,10 @@ describe("Inventory", function() {
     });
   });
   it("#compact", function() {
-    inventory.items = [new Ingredient('Air', 0)];
-    expect(inventory.find('Air')).toBeDefined();
+    var air = new Ingredient({name:'Air'});
+    inventory.add(air);
+    air = inventory.find('Air');
+    air.amount = 0;
     inventory.compact();
     expect(inventory.find('Air')).toBeFalsy();
   });
