@@ -42,7 +42,7 @@ WorkbenchView.prototype.selectRow = function(event) {
 };
 
 WorkbenchView.prototype.findRecipe = function() {
-  return this.game.findRecipeFor(this.inventory.items);
+  return this.game.findRecipesFor(this.inventory.items);
 }
 
 WorkbenchView.prototype.combine = function(event) {

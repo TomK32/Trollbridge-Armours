@@ -65,10 +65,11 @@ class Game
     return true
 
   # return only the first matching
-  findRecipeFor: (ingredients) ->
+  findRecipesFor: (ingredients) ->
+    result = []
     for recipe in @player.recipes
-      if recipe.fuzzyMatch(ingredients) then return(recipe) 
-    return false
+      if recipe.fuzzyMatch(ingredients) then result.push recipe
+    return result
 
 
   combine: (recipe, amount) ->

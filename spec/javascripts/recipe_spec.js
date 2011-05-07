@@ -15,13 +15,6 @@ describe("Recipe", function() {
   it("#to_s", function() {
     expect(recipe.to_s()).toEqual('Wooden Sword (3x Oak Wood, 1x Leather)');
   });
-  describe("pre-defined recipes", function() {
-    it("should have oak_plank", function() {
-      var recipe = Recipe.oak_plank;
-      expect(recipe.ingredients).toEqual([Ingredient.oak_wood(2)]);
-      expect(recipe.products).toEqual([Ingredient.oak_plank(1)]);
-    });
-  });
   describe("#match", function() {
     it("should match against ingredients", function() {
       expect(recipe.match([Ingredient.oak_wood(3), Ingredient.leather(1)])).toBeTruthy();
