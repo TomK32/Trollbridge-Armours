@@ -22,6 +22,7 @@ WorkbenchView.prototype.redraw = function() {
 
   this.renderTable();
   if(this.data_source.items.length > 0) {
+    this.canvas.text(10, 10, 'x').defaults({'font-size': '12px', parent: this}).link(this.reset).button().defaults({parent: this}).link(this.reset);
     this.canvas.text(this.canvas.width-20, 20, 'Recipes').defaults({'text-anchor': 'end'});
     var recipes = this.findRecipes();
     for(c in recipes) {
@@ -33,7 +34,12 @@ WorkbenchView.prototype.redraw = function() {
 };
 WorkbenchView.prototype.show = WorkbenchView.prototype.redraw;
 WorkbenchView.prototype.reset = function() {
-  this.inventory.clear();
+  if (this.attrs) {
+    this.attrs.parent.inventory.clear();
+    this.attrs.parent.redraw();
+  } else {
+    this.inventory.clear();
+  }
 }
 
 WorkbenchView.prototype.selectRow = function(event) {
