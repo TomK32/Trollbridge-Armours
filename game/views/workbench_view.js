@@ -9,7 +9,7 @@ WorkbenchView = function(game_view) {
   this.inventory = new Inventory();
   this.data_source = this.inventory;
 
-  this.canvas = new Raphael(this.x(620), this.y(70), 240, 300);
+  this.canvas = new Raphael(this.x(600), this.y(70), 260, 300);
   this.canvas.defaultCustomAttributes()
 
   this.tableOffsetTop = 50;
@@ -23,8 +23,12 @@ WorkbenchView.prototype.redraw = function(frameDuration, totalDuration, frameNum
 
   this.renderTable();
   if(this.data_source.items.length > 0) {
-    this.canvas.text(this.canvas.width / 2, 20, 'Combine')
-      .defaults({parent: this}).button(this.combine);
+    var recipes = this.findRecipes();
+    for(c in recipes) {
+      var recipe = recipes[c];
+      this.canvas.text(this.canvas.width-25, c*30+25, recipe.name).reposition().reposition('r')
+      .defaults({parent: this, row: recipe}).button(this.combine);
+    }
   }
 };
 
@@ -41,16 +45,20 @@ WorkbenchView.prototype.selectRow = function(event) {
   p.game_view.redraw();
 };
 
-WorkbenchView.prototype.findRecipe = function() {
+WorkbenchView.prototype.findRecipes = function() {
   return this.game.findRecipesFor(this.inventory.items);
 }
 
 WorkbenchView.prototype.combine = function(event) {
   var p = this.attrs.parent;
   if(!p) { return; }
-  var recipe = p.findRecipe();
+  var recipe = this.attrs.row;
   if(recipe) {
     p.game.combine(recipe);
+    for(c in recipe.ingredients)
+      p.inventory.remove(recipe.ingredients[c]);
+    for(c in recipe.products)
+      p.inventory.add(recipe.products[c]);
     // hide if all used up
     if(p.inventory.items.length == 0) {
       $(p.canvas.canvas).hide();

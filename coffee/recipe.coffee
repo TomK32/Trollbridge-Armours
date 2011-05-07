@@ -19,10 +19,10 @@ class Recipe
 
 
   fuzzyMatch: (other_ingredients) ->
-    o = new Inventory($.extend([], other_ingredients))
+    i = new Inventory($.extend([], other_ingredients))
     for ingredient in @ingredients
-      if !o.remove(ingredient) then return false
-    o
+      if !i.find(ingredient) then return false
+    true
 
   incrementCounter: (amount) ->
     @counter += amount
