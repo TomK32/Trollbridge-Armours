@@ -20,10 +20,13 @@ InventoryView.prototype.redraw = function(clean) {
   this.canvas.clear();
   this.canvas.fillBackground('#eee').opaque();
 
-  this.renderTable();
+  this.renderTable(this.attachMouseDown);
 };
 
-InventoryView.prototype.selectRow = function(event) {
+InventoryView.prototype.attachMouseDown = function(row, item) {
+  row.mousedown(this.selectItem);
+}
+InventoryView.prototype.selectItem = function(event) {
   var item = this.attrs.row;
   var p = this.attrs.parent;
   // TODO amount_available < 1
@@ -33,4 +36,9 @@ InventoryView.prototype.selectRow = function(event) {
   var item_clone = jQuery.extend(true, {}, item);
   item_clone.amount = 1;
   p.game_view.selectIngredient(item_clone);
+  timer = setInterval(function(e) {
+      item_clone.amount += 1;
+      p.game_view.selectIngredient(item_clone);
+    }, 100);
+  $(window).mouseup(function(e) { clearInterval(timer) });
 };
