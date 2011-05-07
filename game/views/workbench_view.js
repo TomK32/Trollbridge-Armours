@@ -15,7 +15,7 @@ WorkbenchView = function(game_view) {
   this.redraw();
 };
 
-WorkbenchView.prototype.redraw = function(frameDuration, totalDuration, frameNumber) {
+WorkbenchView.prototype.redraw = function() {
   this.canvas.clear();
   this.canvas.fillBackground('#eee').opaque();
   this.inventory.compact();
@@ -31,6 +31,10 @@ WorkbenchView.prototype.redraw = function(frameDuration, totalDuration, frameNum
     }
   }
 };
+WorkbenchView.prototype.show = WorkbenchView.prototype.redraw;
+WorkbenchView.prototype.reset = function() {
+  this.inventory.clear();
+}
 
 WorkbenchView.prototype.selectRow = function(event) {
   var row = this.attrs.row;

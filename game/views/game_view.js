@@ -27,7 +27,7 @@ GameView.prototype.showView = function(view, hide_others) {
   // stopping to allow player work in this view
   this.game.startLoop();
   $(this[view + '_view'].canvas.canvas).show();
-  this[view + '_view'].redraw();
+  this[view + '_view'].show();
   this.redraw(true)
 }
 GameView.prototype.redraw = function(skipSubviews) {

@@ -48,4 +48,5 @@ class Inventory
   compact: ->
     for item in this.items
       if(item.amount == 0) then item = _ref.splice(_i,1) # stupid hack...
-
+  clear: ->
+    this.items = [];

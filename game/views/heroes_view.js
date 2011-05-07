@@ -38,6 +38,7 @@ HeroesView.prototype.redraw = function() {
     }
   }
 }
+HeroesView.prototype.show = HeroesView.prototype.redraw
 
 HeroesView.prototype.removeHeroDetails = function() {
   if(this.hero_inventory) {

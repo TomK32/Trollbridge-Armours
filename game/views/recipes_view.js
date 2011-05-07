@@ -20,3 +20,4 @@ RecipesView.prototype.redraw = function() {
   this.canvas.fillBackground('#ddd').opaque();
   this.renderTable();
 };
+RecipesView.prototype.show = RecipesView.prototype.redraw

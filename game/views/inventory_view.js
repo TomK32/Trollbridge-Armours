@@ -12,7 +12,11 @@ var InventoryView = function(game_view, inventory) {
   this.redraw();
 };
 
-InventoryView.prototype.redraw = function() {
+InventoryView.prototype.show = function() {
+  this.game_view.workbench_view.reset();
+  this.redraw();
+}
+InventoryView.prototype.redraw = function(clean) {
   this.canvas.clear();
   this.canvas.fillBackground('#eee').opaque();
 
@@ -25,7 +29,7 @@ InventoryView.prototype.selectRow = function(event) {
   var item = p.data_source.items[row];
   // TODO amount_available < 1
   if(!item || item.amount < 1) { return false; }
-  p.game_view.showView('workbench', false);
+  p.game_view.showView('workbench');
   // new selection
   var item_clone = jQuery.extend(true, {}, item);
   item_clone.amount = 1;
