@@ -31,7 +31,7 @@
       function start(){
         $('#game_view').show();
         game = new Game();
-        game.player.name = $('#player_name').val();
+        game.player.name = 'Thomas'; $('#player_name').val();
         if(game.player.name == '') { game.player.name = prompt("What's your name?")}
         // give the new player some stock
         game.player.inventory.add(Ingredient.oak_wood(20));
