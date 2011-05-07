@@ -49,10 +49,15 @@ class Recipe
 
   to_s: ->
     s = []
-    for ingredient in @ingredients
-      s.push(ingredient.amount + 'x ' + ingredient.name)
-
-    return @name + ' (' + s.join(', ') + ')'
+    if @satisfied || @requirements.length == 0
+      prefix = ""
+      for ingredient in @ingredients
+        s.push(ingredient.amount + 'x ' + ingredient.name)
+    else
+      prefix = "make "
+      for requirement in @requirements
+        s.push(requirement[1] + 'x ' + requirement[0].name)
+    return @name + ' (' + prefix + s.join(', ') + ')'
 
   @roots: ->
     result = []
