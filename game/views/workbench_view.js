@@ -9,10 +9,9 @@ WorkbenchView = function(game_view) {
   this.inventory = new Inventory();
   this.data_source = this.inventory;
 
-  this.canvas = new Raphael(this.x(600), this.y(70), 260, 300);
+  this.canvas = new Raphael(this.x(540), this.y(70), 320, 300);
   this.canvas.defaultCustomAttributes()
 
-  this.tableOffsetTop = 50;
   this.redraw();
 };
 
@@ -23,10 +22,11 @@ WorkbenchView.prototype.redraw = function(frameDuration, totalDuration, frameNum
 
   this.renderTable();
   if(this.data_source.items.length > 0) {
+    this.canvas.text(this.canvas.width-20, 20, 'Recipes').defaults({'text-anchor': 'end'});
     var recipes = this.findRecipes();
     for(c in recipes) {
       var recipe = recipes[c];
-      this.canvas.text(this.canvas.width-25, c*30+25, recipe.name).reposition().reposition('r')
+      this.canvas.text(this.canvas.width-25, c*30+40, recipe.name).reposition().reposition('r')
       .defaults({parent: this, row: recipe}).button(this.combine);
     }
   }

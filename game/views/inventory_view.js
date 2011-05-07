@@ -5,7 +5,7 @@ var InventoryView = function(game_view, inventory) {
   this.inventory = inventory;
   this.data_source = inventory;
   this.parent = game_view;
-  this.canvas = new Raphael(this.x(180), this.y(70), 400, 400);
+  this.canvas = new Raphael(this.x(180), this.y(70), 320, 400);
   this.canvas.defaultCustomAttributes()
   this.game_view = game_view;
 
