@@ -1,12 +1,12 @@
 describe("Recipe", function() {
   beforeEach(function() {
-    recipe = new Recipe({name: 'Wooden Sword', ingredients: [Ingredient.oak_wood(3), Ingredient.leather(1)], products: [Product.wooden_sword()]});
+    recipe = new Recipe({name: 'Wooden Sword', ingredients: [Ingredient.oak_wood(3), Ingredient.leather(1)], products: [Product.wooden_sword]});
   });
   it("should have name", function() {
     expect(recipe.name).toEqual('Wooden Sword');
   });
   it("should use product's name as fallback", function() {
-    var r = new Recipe({ingredients: [Ingredient.oak_wood(2)], products: [Ingredient.oak_plank()]});
+    var r = new Recipe({ingredients: [Ingredient.oak_wood(2)], products: [Ingredient.oak_plank(1)]});
     expect(r.name).toEqual('Oak Plank');
   });
   it("should have ingredients", function() {
@@ -17,7 +17,7 @@ describe("Recipe", function() {
   });
   describe("pre-defined recipes", function() {
     it("should have oak_plank", function() {
-      var recipe = Recipe.oak_plank();
+      var recipe = Recipe.oak_plank;
       expect(recipe.ingredients).toEqual([Ingredient.oak_wood(2)]);
       expect(recipe.products).toEqual([Ingredient.oak_plank(1)]);
     });
@@ -57,27 +57,27 @@ describe("Recipe", function() {
     });
   });
   describe("#incrementCounter", function() {
+    beforeEach(function() {
+      for (c in Recipe) {
+        Recipe[c].counter = 0;
+      }
+    });
     it("should increment counter", function() {
       expect(recipe.incrementCounter(4).counter).toEqual(4);
       expect(recipe.incrementCounter(2).counter).toEqual(6);
     });
     it("should return new recipes", function() {
-      var oak_plank = Recipe.oak_plank();
-      var lark_plank = new Recipe({name: 'Lark Plank', requirements: [[oak_plank, 10]]});
-      oak_plank.children = [lark_plank];
-      oak_plank.incrementCounter(10);
-      expect(oak_plank.childrenAvailable()).toEqual([lark_plank]);
-      expect(oak_plank.childrenAvailable()).toEqual([lark_plank]);
+      var lark_plank = Recipe.define('lark_plank', {name: 'Lark Plank', requirements: [[Recipe.oak_plank, 10]]});
+      expect(Recipe.oak_plank.children()).toContain(lark_plank);
+      Recipe.oak_plank.incrementCounter(10);
+      expect(Recipe.oak_plank.childrenAvailable()).toContain(lark_plank);
     });
     it("should return new recipes for complicated tree", function() {
-      var oak_plank = Recipe.oak_plank();
-      var wooden_sword = Recipe.wooden_sword();
-      var wooden_shield = new Recipe({name: 'Wooden Shield', requirements: [[oak_plank, 10], [wooden_sword, 1]]});
-      oak_plank.children = [wooden_shield];
-      oak_plank.incrementCounter(10);
-      expect(oak_plank.childrenAvailable()).toEqual([]);
-      wooden_sword.incrementCounter(1);
-      expect(oak_plank.childrenAvailable()).toEqual([wooden_shield]);
+      var wooden_shield = Recipe.define('wooden_shield', {name: 'Wooden Shield', requirements: [[Recipe.oak_plank, 10], [Recipe.wooden_sword, 1]]});
+      Recipe.oak_plank.incrementCounter(10);
+      expect(Recipe.oak_plank.childrenAvailable()).not.toContain(Recipe.wooden_shield);
+      Recipe.wooden_sword.incrementCounter(1);
+      expect(Recipe.oak_plank.childrenAvailable()).toContain(Recipe.wooden_shield);
     });
   });
   describe("tech tree", function() {
@@ -86,11 +86,17 @@ describe("Recipe", function() {
       expect(recipe.requirements).toEqual([]);
     });
     it("should have children", function() {
-      expect(recipe.children).toBeDefined();
-      expect(recipe.children).toEqual([]);
+      expect(recipe.children()).toBeDefined();
     });
     it("should have counter", function() {
       expect(new Recipe({name:'Beer'}).counter).toEqual(0);
     });
+  });
+  it("#roots", function() {
+    var p,c;
+    p = Recipe.define('parent', {name: 'parent'})
+    c = Recipe.define('child', {name: 'child', requirements: [[p, 1]]})
+    expect(Recipe.roots()).toContain(p);
+    expect(Recipe.roots()).not.toContain(c);
   });
 });

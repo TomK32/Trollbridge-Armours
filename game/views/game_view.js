@@ -48,7 +48,6 @@ GameView.prototype.redraw = function(skipSubviews) {
   this.menu_view.redraw();
 };
 
-
 GameView.prototype.selectIngredient = function(item) {
   var inventory_item = this.inventory_view.inventory.find(item, 0);
   var workbench_item = this.workbench_view.inventory.find(item, 0);
