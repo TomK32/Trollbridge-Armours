@@ -8,7 +8,7 @@ var GameView = function(target, game) {
   this.inventory_view = new InventoryView(this, this.game.inventory);
   this.workbench_view = new WorkbenchView(this);
   this.heroes_view = new HeroesView(this, game.heroes);
-  this.recipes_view = new RecipesView(this, game.player);
+  this.recipes_view = new RecipesView(this, game);
   this.player_view = new PlayerView(this, game.player);
   this.help_view = new HelpView(this, game.player);
 

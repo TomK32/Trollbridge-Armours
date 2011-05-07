@@ -37,9 +37,8 @@ WorkbenchView.prototype.reset = function() {
 }
 
 WorkbenchView.prototype.selectRow = function(event) {
-  var row = this.attrs.row;
+  var item = this.attrs.row;
   var p = this.attrs.parent;
-  var item = p.data_source.items[row];
   // TODO amount_available < 1
   if(!item || item.amount < 1) { return false; }
   // new selection

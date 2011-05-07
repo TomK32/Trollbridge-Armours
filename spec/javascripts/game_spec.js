@@ -12,7 +12,6 @@ describe("Game", function() {
     expect(game.inventory).toBeDefined();
   });
   it("should have recipes", function() {
-    expect(game.recipes).toBeDefined();
     expect(game.player.recipes).toBeDefined();
   });
   it("should have heroes", function() {
