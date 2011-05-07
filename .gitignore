@@ -9,3 +9,4 @@ game/money.js
 game/player.js
 game/product.js
 game/recipe.js
+data/data.js

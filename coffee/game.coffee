@@ -7,7 +7,6 @@ class Game
   constructor: ->
     @player = new Player()
     @inventory = @player.inventory
-    @recipes = @player.recipes
     @heroes = []
     @timer = @startLoop()
     @game_view = false
@@ -15,7 +14,6 @@ class Game
 
   toggleLoop: ->
     if @timer then @stopLoop() else @startLoop()
-
 
   startLoop: ->
     if @timer then return false
