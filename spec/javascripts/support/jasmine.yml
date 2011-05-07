@@ -19,7 +19,6 @@ src_files:
     - game/recipe.js
     - game/ingredient.js
     - game/hero.js
-    - game/data.js
     - game/**/*.js
 
 # stylesheets
