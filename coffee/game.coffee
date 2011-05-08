@@ -3,7 +3,7 @@
    (C) 2011 by Thomas R. Koll, ananasblau.com
 ###
 class Game
-  @version = '0.1.1'
+  @version = '0.2'
   constructor: ->
     @player = new Player()
     @inventory = @player.inventory
