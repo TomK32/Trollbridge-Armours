@@ -33,7 +33,7 @@ InventoryView.prototype.selectItem = function(event) {
   if(!item || item.amount < 1) { return false; }
   p.game_view.showView('workbench');
   // new selection
-  var item_clone = jQuery.extend(true, {}, item);
+  var item_clone = jQuery.extend(true, new (item.constructor)({}), item);
   item_clone.amount = 1;
   p.game_view.selectIngredient(item_clone);
   timer = setInterval(function(e) {

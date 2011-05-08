@@ -14,7 +14,7 @@ class Recipe
     @satisfied = false
 
   fuzzyMatch: (other_ingredients) ->
-    i = new Inventory($.extend([], other_ingredients))
+    i = new Inventory($.extend(true, [], other_ingredients))
     for ingredient in @ingredients
       if !i.find(ingredient) then return false
     i

@@ -36,7 +36,7 @@ class Game
     if !hero.wishlist.find(item,0) || !@player.inventory.find(item,0) then return false
     player_item = @player.inventory.find(item,0)
     return false if !player_item
-    o = $.extend({}, item)
+    o = $.extend(new (item.constructor)({}), item)
     o.amount = Math.min(player_item.amount, item.amount)
     @player.money += (player_item.value * o.amount)
     @player.lastSale = [item.name, item.value * o.amount]
@@ -49,7 +49,7 @@ class Game
     true
 
   buyItem: (item, hero) ->
-    o = $.extend({}, item)
+    o = $.extend(new (item.constructor)({}), item)
     if !item.forSale || !item.value then return false
     o.amount = Math.min(item.amount, Math.floor(@player.money / item.value))
     if isNaN(o.amount) || o.amount < 1 then return false 

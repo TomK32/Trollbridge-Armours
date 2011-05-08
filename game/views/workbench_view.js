@@ -48,7 +48,7 @@ WorkbenchView.prototype.selectRow = function(event) {
   // TODO amount_available < 1
   if(!item || item.amount < 1) { return false; }
   // new selection
-  var item_clone = jQuery.extend(true, {}, item);
+  var item_clone = jQuery.extend(true, new (item.constructor)({}), item);
   item_clone.amount = 1;
   p.inventory.remove(item_clone);
   p.game_view.redraw();
