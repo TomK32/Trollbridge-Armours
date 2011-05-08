@@ -122,7 +122,7 @@ HeroInventoryView.prototype.sellLink = function(row, item) {
 }
 HeroInventoryView.prototype.buyLink = function(row, item) {
   if(!item.forSale) { return false; };
-  row.attr({fill: '#0A0', parent: this.hero_view, row: item}).link(this.hero_view.buyItem);
+  row.attr({fill: '#080', parent: this.hero_view, row: item}).link(this.hero_view.buyItem);
 }
 
 HeroInventoryView.prototype.addTab = function(x,y, margin, text, horizontal) {

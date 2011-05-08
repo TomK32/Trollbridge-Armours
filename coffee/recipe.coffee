@@ -56,7 +56,9 @@ class Recipe
     else
       prefix = "make "
       for requirement in @requirements
-        s.push(Math.max(0, requirement[1] - requirement[0].counter) + 'x ' + requirement[0].name)
+        left = requirement[1] - requirement[0].counter
+        if(left > 0)
+          s.push(left + 'x ' + requirement[0].name)
     return @name + ' (' + prefix + s.join(', ') + ')'
 
   @roots: ->
