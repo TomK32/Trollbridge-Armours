@@ -3,11 +3,10 @@
    (C) 2011 by Thomas R. Koll, ananasblau.com
 */var Game;
 Game = (function() {
-  Game.version = '0.1.1';
+  Game.version = '0.2';
   function Game() {
     this.player = new Player();
     this.inventory = this.player.inventory;
-    this.recipes = this.player.recipes;
     this.heroes = [];
     this.timer = this.startLoop();
     this.game_view = false;
@@ -56,7 +55,7 @@ Game = (function() {
     if (!player_item) {
       return false;
     }
-    o = $.extend({}, item);
+    o = $.extend(new item.constructor({}), item);
     o.amount = Math.min(player_item.amount, item.amount);
     this.player.money += player_item.value * o.amount;
     this.player.lastSale = [item.name, item.value * o.amount];
@@ -71,7 +70,7 @@ Game = (function() {
   };
   Game.prototype.buyItem = function(item, hero) {
     var o;
-    o = $.extend({}, item);
+    o = $.extend(new item.constructor({}), item);
     if (!item.forSale || !item.value) {
       return false;
     }
@@ -89,16 +88,17 @@ Game = (function() {
     }
     return true;
   };
-  Game.prototype.findRecipeFor = function(ingredients) {
-    var recipe, _i, _len, _ref;
+  Game.prototype.findRecipesFor = function(ingredients) {
+    var recipe, result, _i, _len, _ref;
+    result = [];
     _ref = this.player.recipes;
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       recipe = _ref[_i];
       if (recipe.fuzzyMatch(ingredients)) {
-        return recipe;
+        result.push(recipe);
       }
     }
-    return false;
+    return result;
   };
   Game.prototype.combine = function(recipe, amount) {
     var child, ingredient, product, _i, _j, _k, _l, _len, _len2, _len3, _len4, _ref, _ref2, _ref3, _ref4;

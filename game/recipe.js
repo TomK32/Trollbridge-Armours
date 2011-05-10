@@ -12,22 +12,17 @@ Recipe = (function() {
     this.counter = 0;
     this.satisfied = false;
   }
-  Recipe.prototype.match = function(other_ingredients) {
-    var o;
-    o = this.fuzzyMatch(other_ingredients);
-    return o && o.items.length === 0;
-  };
   Recipe.prototype.fuzzyMatch = function(other_ingredients) {
-    var ingredient, o, _i, _len, _ref;
-    o = new Inventory($.extend([], other_ingredients));
+    var i, ingredient, _i, _len, _ref;
+    i = new Inventory($.extend(true, [], other_ingredients));
     _ref = this.ingredients;
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       ingredient = _ref[_i];
-      if (!o.remove(ingredient)) {
+      if (!i.find(ingredient)) {
         return false;
       }
     }
-    return o;
+    return i;
   };
   Recipe.prototype.incrementCounter = function(amount) {
     this.counter += amount;
@@ -83,14 +78,27 @@ Recipe = (function() {
     return this;
   };
   Recipe.prototype.to_s = function() {
-    var ingredient, s, _i, _len, _ref;
+    var ingredient, left, prefix, requirement, s, _i, _j, _len, _len2, _ref, _ref2;
     s = [];
-    _ref = this.ingredients;
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      ingredient = _ref[_i];
-      s.push(ingredient.amount + 'x ' + ingredient.name);
+    if (this.satisfied || this.requirements.length === 0) {
+      prefix = "";
+      _ref = this.ingredients;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        ingredient = _ref[_i];
+        s.push(ingredient.amount + 'x ' + ingredient.name);
+      }
+    } else {
+      prefix = "make ";
+      _ref2 = this.requirements;
+      for (_j = 0, _len2 = _ref2.length; _j < _len2; _j++) {
+        requirement = _ref2[_j];
+        left = requirement[1] - requirement[0].counter;
+        if (left > 0) {
+          s.push(left + 'x ' + requirement[0].name);
+        }
+      }
     }
-    return this.name + ' (' + s.join(', ') + ')';
+    return this.name + ' (' + prefix + s.join(', ') + ')';
   };
   Recipe.roots = function() {
     var recipe, result, _i, _len, _ref;

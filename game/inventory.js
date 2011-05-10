@@ -20,7 +20,7 @@ Inventory = (function() {
       if (item.name === what) {
         if (amount) {
           if (item.amount >= amount) {
-            n = jQuery.extend(true, {}, item);
+            n = jQuery.extend(true, new item.constructor({}), item);
             n.amount = amount;
             return n;
           } else {
@@ -39,7 +39,7 @@ Inventory = (function() {
     if (stock) {
       stock.amount += other.amount;
     } else {
-      this.items.push($.extend(true, {}, other));
+      this.items.push($.extend(true, new other.constructor({}), other));
     }
     return this;
   };
@@ -66,6 +66,33 @@ Inventory = (function() {
       _results.push(item.amount === 0 ? item = _ref.splice(_i, 1) : void 0);
     }
     return _results;
+  };
+  Inventory.prototype.clear = function() {
+    return this.items = [];
+  };
+  Inventory.prototype.ingredientsValue = function() {
+    var item, result, _i, _len, _ref;
+    result = 0;
+    _ref = this.items;
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      item = _ref[_i];
+      if (item instanceof Ingredient) {
+        result += item.amount * item.value;
+      }
+    }
+    return result;
+  };
+  Inventory.prototype.productsValue = function() {
+    var item, result, _i, _len, _ref;
+    result = 0;
+    _ref = this.items;
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      item = _ref[_i];
+      if (item instanceof Product) {
+        result += item.amount * item.value;
+      }
+    }
+    return result;
   };
   return Inventory;
 })();
