@@ -38,6 +38,7 @@ HeroesView.prototype.redraw = function() {
     }
   }
 }
+HeroesView.prototype.show = HeroesView.prototype.redraw
 
 HeroesView.prototype.removeHeroDetails = function() {
   if(this.hero_inventory) {
@@ -115,13 +116,13 @@ HeroInventoryView.prototype.closeInventory = function(event) {
   this.attrs.parent.parent.redraw();
 }
 HeroInventoryView.prototype.sellLink = function(row, item) {
-  if(this.parent.game.player.inventory.find(item.name)) {
-    row.attr({fill: '#00A', parent: this, row: item}).link(this.sellItem);
+  if(this.game_view.game.player.inventory.find(item.name)) {
+    row.attr({fill: '#00A', parent: this.hero_view, row: item}).link(this.hero_view.sellItem);
   }
 }
 HeroInventoryView.prototype.buyLink = function(row, item) {
-  if(!item.forSale) { return false; }
-  row.attr({fill: '#0A0', parent: this, row: item}).link(this.buyItem);
+  if(!item.forSale) { return false; };
+  row.attr({fill: '#080', parent: this.hero_view, row: item}).link(this.hero_view.buyItem);
 }
 
 HeroInventoryView.prototype.addTab = function(x,y, margin, text, horizontal) {
@@ -143,6 +144,7 @@ HeroInventoryView.prototype.showHeroWishlist = function(event) {
 };
 HeroInventoryView.prototype.showHeroInventory = function(event) {
   var p = (this.attrs ? this.attrs.parent : this);
+
   p.selectedTab = 0; // TODO constants?
   p.data_source = p.hero.inventory;
   p.redraw();

@@ -13,16 +13,11 @@ class Recipe
     @counter = 0
     @satisfied = false
 
-  match: (other_ingredients) ->
-    o = @fuzzyMatch(other_ingredients)
-    return(o && o.items.length == 0)
-
-
   fuzzyMatch: (other_ingredients) ->
-    o = new Inventory($.extend([], other_ingredients))
+    i = new Inventory($.extend(true, [], other_ingredients))
     for ingredient in @ingredients
-      if !o.remove(ingredient) then return false
-    o
+      if !i.find(ingredient) then return false
+    i
 
   incrementCounter: (amount) ->
     @counter += amount
@@ -54,10 +49,17 @@ class Recipe
 
   to_s: ->
     s = []
-    for ingredient in @ingredients
-      s.push(ingredient.amount + 'x ' + ingredient.name)
-
-    return @name + ' (' + s.join(', ') + ')'
+    if @satisfied || @requirements.length == 0
+      prefix = ""
+      for ingredient in @ingredients
+        s.push(ingredient.amount + 'x ' + ingredient.name)
+    else
+      prefix = "make "
+      for requirement in @requirements
+        left = requirement[1] - requirement[0].counter
+        if(left > 0)
+          s.push(left + 'x ' + requirement[0].name)
+    return @name + ' (' + prefix + s.join(', ') + ')'
 
   @roots: ->
     result = []

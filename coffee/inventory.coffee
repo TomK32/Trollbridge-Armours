@@ -17,7 +17,7 @@ class Inventory
       if item.name == what
         if amount
           if item.amount >= amount
-            n = jQuery.extend(true, {}, item)
+            n = jQuery.extend(true, new (item.constructor)({}), item)
             n.amount = amount
             return n
           else return false
@@ -30,7 +30,7 @@ class Inventory
     if stock
       stock.amount += other.amount
     else
-      this.items.push($.extend(true, {}, other))
+      this.items.push($.extend(true, new (other.constructor)({}), other))
 
     return this
 
@@ -48,4 +48,17 @@ class Inventory
   compact: ->
     for item in this.items
       if(item.amount == 0) then item = _ref.splice(_i,1) # stupid hack...
-
+  clear: ->
+    this.items = [];
+  ingredientsValue: ->
+    result = 0
+    for item in @items
+      if item instanceof Ingredient
+        result += (item.amount * item.value)
+    result
+  productsValue: ->
+    result = 0
+    for item in @items
+      if item instanceof Product
+        result += (item.amount * item.value)
+    result

@@ -12,29 +12,31 @@ describe("Game", function() {
     expect(game.inventory).toBeDefined();
   });
   it("should have recipes", function() {
-    expect(game.recipes).toBeDefined();
     expect(game.player.recipes).toBeDefined();
   });
   it("should have heroes", function() {
     expect(game.heroes).toBeDefined();
   });
   describe("combine", function() {
+    beforeEach(function() {
+      game.inventory.items = [];
+    });
     it("should for one ingredient", function() {
-      game.inventory.add(Ingredient.oak_wood(4));
+      game.inventory.add(Ingredient.oak_wood(6));
       expect(game.inventory.find('Oak Plank')).toBeFalsy();
       // by default it should use up make only 1
       expect(game.combine(Recipe.oak_plank)).toBeTruthy();
-      expect(game.inventory.find('Oak Wood').amount).toEqual(2);
+      expect(game.inventory.find('Oak Wood').amount).toEqual(3);
       expect(game.inventory.find('Oak Plank').amount).toEqual(1);
     });
     it("should for two ingredients", function() {
-      game.inventory.add(Ingredient.oak_plank(1));
-      game.inventory.add(Ingredient.leather(3));
+      game.inventory.add(Ingredient.oak_plank(2));
+      game.inventory.add(Ingredient.leather(1));
       expect(game.inventory.find('Wooden Sword')).toBeFalsy();
       // by default it should use up make only 1
       expect(game.combine(Recipe.wooden_sword)).toBeTruthy();
       expect(game.inventory.find('Oak Plank')).toBeFalsy();
-      expect(game.inventory.find('Leather').amount).toEqual(2);
+      expect(game.inventory.find('Leather')).toBeFalsy();
       expect(game.inventory.find('Wooden Sword').amount).toEqual(1);
     });
     it("should not work if not enough ingredients", function() {
@@ -44,28 +46,31 @@ describe("Game", function() {
       expect(game.combine(Recipe.oak_plank)).toBeFalsy()
     });
     it("for a higher amount", function() {
-      game.inventory.add(Ingredient.oak_wood(4));
+      game.inventory.add(Ingredient.oak_wood(6));
       expect(game.inventory.find('Oak Plank')).toBeFalsy();
       expect(game.combine(Recipe.oak_plank, 3)).toBeFalsy();
       expect(game.combine(Recipe.oak_plank, 2)).toBeTruthy();
       
     });
   });
-  describe("findRecipeFor", function() {
+  describe("findRecipesFor", function() {
     beforeEach(function() {
-      game.player.recipes = [Recipe.oak_plank, Recipe.wooden_sword];
+      game.player.recipes = [Recipe.oak_plank, Recipe.wooden_sword, Recipe.wooden_shield];
     });
     it("should match", function() {
-      expect(game.findRecipeFor([Ingredient.oak_wood(2)])).toEqual(Recipe.oak_plank);
+      expect(game.findRecipesFor([Ingredient.oak_wood(3)])).toEqual([Recipe.oak_plank]);
+    });
+    it("should match all", function() {
+      expect(game.findRecipesFor([Ingredient.oak_plank(10), Ingredient.leather(2)])).toEqual([Recipe.wooden_sword, Recipe.wooden_shield]);
     });
     it("should not match", function() {
-      expect(game.findRecipeFor([Ingredient.oak_wood(1)])).toBeFalsy();
+      expect(game.findRecipesFor([Ingredient.oak_wood(1)])).toEqual([]);
     });
     it("should match if too many ingredients", function() {
-      expect(game.findRecipeFor([Ingredient.oak_wood(3)])).toEqual(Recipe.oak_plank);
+      expect(game.findRecipesFor([Ingredient.oak_wood(3)])).toEqual([Recipe.oak_plank]);
     });
     it("should match if too many ingredients", function() {
-      expect(game.findRecipeFor([Ingredient.oak_plank(1), Ingredient.oak_wood(3)])).toEqual(Recipe.oak_plank);
+      expect(game.findRecipesFor([Ingredient.oak_plank(1), Ingredient.oak_wood(3)])).toEqual([Recipe.oak_plank]);
     });
   });
   describe("#sellItem", function() {
